@@ -50,7 +50,7 @@ export default function Portfolio() {
         <div className="max-w-6xl mx-auto px-6 py-4">
           <div className="flex justify-between items-center">
             <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-              &lt;TuNombre /&gt;
+              &lt;Matías Fernández /&gt;
             </h1>
             <div className="flex gap-6">
               <button 
@@ -271,8 +271,8 @@ export default function Portfolio() {
       {/* Footer */}
       <footer className="bg-slate-900/80 border-t border-blue-900/30 py-8">
         <div className="max-w-6xl mx-auto px-6 text-center text-slate-400">
-          <p>© 2025 - Desarrollado con React y Tailwind CSS</p>
-          <p className="mt-2">Disponible para oportunidades laborales</p>
+          <p>© 2025 - Desarrollado con React, Vite y Tailwind CSS</p>
+          {/* <p className="mt-2">Disponible para oportunidades laborales</p>  */}
         </div>
       </footer>
 
