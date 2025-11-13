@@ -1,9 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { Github, Linkedin, Mail, Code2, Briefcase, User, ExternalLink, Sun, Moon } from 'lucide-react';
+import { Github, Linkedin, Mail, Code2, Briefcase, User, ExternalLink, Sun, Moon, CheckCircle, AlertCircle, Loader } from 'lucide-react';
+import { z } from 'zod';
+
+// Esquema de validación
+const contactFormSchema = z.object({
+  name: z.string().min(2, 'El nombre debe tener al menos 2 caracteres'),
+  email: z.string().email('Email inválido'),
+  message: z.string().min(10, 'El mensaje debe tener al menos 10 caracteres').max(1000, 'Máximo 1000 caracteres')
+});
 
 export default function Portfolio() {
   const [activeSection, setActiveSection] = useState('sobre-mi');
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [formStatus, setFormStatus] = useState({ type: null, message: '' }); // 'success', 'error', 'loading'
+  const [formErrors, setFormErrors] = useState({}); // Errores en tiempo real
   const [isDarkMode, setIsDarkMode] = useState(() => {
     // Verificar si hay una preferencia guardada, si no, usar dark por defecto
     // SSR-safe: verificar que window existe
@@ -76,10 +86,86 @@ export default function Portfolio() {
     }
   ];
 
-  const handleSubmit = (e) => {
+  const validateField = (name, value) => {
+    try {
+      // Validar el campo individual con el esquema completo
+      if (name === 'name') {
+        const schema = z.string().min(2, 'El nombre debe tener al menos 2 caracteres');
+        schema.parse(value);
+      } else if (name === 'email') {
+        const schema = z.string().email('Email inválido');
+        schema.parse(value);
+      } else if (name === 'message') {
+        const schema = z.string().min(10, 'El mensaje debe tener al menos 10 caracteres').max(1000, 'Máximo 1000 caracteres');
+        schema.parse(value);
+      }
+      setFormErrors(prev => ({ ...prev, [name]: '' }));
+    } catch (error) {
+      if (error instanceof z.ZodError && error.errors && error.errors.length > 0) {
+        setFormErrors(prev => ({ ...prev, [name]: error.errors[0].message }));
+      } else {
+        setFormErrors(prev => ({ ...prev, [name]: 'Error de validación' }));
+      }
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+    validateField(name, value);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert('¡Gracias por tu mensaje! Te contactaré pronto.');
-    setFormData({ name: '', email: '', message: '' });
+    
+    try {
+      // Validar todo el formulario
+      contactFormSchema.parse(formData);
+      
+      setFormStatus({ type: 'loading', message: 'Enviando mensaje...' });
+
+      // Enviar con Web3Forms
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          access_key: 'bbb4c56c-c721-4df9-b3ea-10ae9ba51f52',
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          from_name: 'Portfolio Contact Form',
+          subject: `Nuevo mensaje de ${formData.name}`
+        })
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setFormStatus({ 
+          type: 'success', 
+          message: '✅ ¡Mensaje enviado exitosamente! Te contactaré pronto.' 
+        });
+        setFormData({ name: '', email: '', message: '' });
+        setFormErrors({});
+        
+        // Limpiar mensaje después de 5 segundos
+        setTimeout(() => setFormStatus({ type: null, message: '' }), 5000);
+      } else {
+        throw new Error('Error al enviar el formulario');
+      }
+    } catch (error) {
+      if (error instanceof z.ZodError && error.errors && Array.isArray(error.errors)) {
+        const newErrors = {};
+        error.errors.forEach(err => {
+          newErrors[err.path[0]] = err.message;
+        });
+        setFormErrors(newErrors);
+      }
+      setFormStatus({ 
+        type: 'error', 
+        message: '❌ Error al enviar. Intenta de nuevo o contacta directamente.' 
+      });
+    }
   };
 
   return (
@@ -155,10 +241,10 @@ export default function Portfolio() {
               </div>
             </div>
             <h2 className="text-5xl font-bold mb-4">
-              Desarrollador Full Stack
+              Desarrollador de Software | Python • C# • Django • Flask • React • Integraciones AFIP/ARCA
             </h2>
             <p className={`text-xl max-w-2xl mx-auto ${isDarkMode ? 'text-slate-200' : 'text-slate-600'}`}>
-              Estudiante de desarrollo apasionado por crear soluciones innovadoras con Python, C# y JavaScript
+              Desarrollo soluciones que conectan tecnología con necesidades reales: desde integraciones avanzadas con WebServices de AFIP hasta aplicaciones web, automatizaciones y herramientas internas que mejoran procesos y productividad.
             </p>
             <div className="flex gap-4 justify-center mt-8" role="list">
               <a 
@@ -203,16 +289,13 @@ export default function Portfolio() {
             </div>
             <div className={`space-y-4 text-lg ${isDarkMode ? 'text-slate-200' : 'text-slate-700'}`}>
               <p>
-                Soy estudiante de desarrollo de software con experiencia práctica en Python, C# y JavaScript. 
-                Actualmente trabajo en proyectos reales mientras completo mi formación universitaria.
+                Soy desarrollador de software con experiencia aplicando Python, C#, JavaScript y frameworks como Django, Flask, .NET Framework y React. Actualmente trabajo en Cormóns, donde diseñé e implementé integraciones con WebServices de AFIP mediante librerías propias en C#, aportando mejoras en rendimiento, autenticación y velocidad de respuesta.
               </p>
               <p>
-                Mi enfoque está en crear aplicaciones eficientes y escalables, combinando lo mejor de la 
-                teoría académica con las prácticas profesionales del mundo real.
+                Me destaco por mi capacidad de aprender tecnologías rápidamente, comunicar soluciones técnicas de forma clara y encontrar el equilibrio entre lo que el negocio necesita y lo que la tecnología permite. Disfruto crear herramientas que impactan directamente en métricas reales: productividad, calidad del software y experiencia del usuario.
               </p>
               <p>
-                Busco continuamente aprender nuevas tecnologías y mejorar mis habilidades para ofrecer 
-                soluciones de calidad que generen impacto positivo.
+                Además, desarrollo proyectos propios y freelance, desde aplicaciones web full stack hasta automatizaciones, bots y dashboards interactivos.
               </p>
             </div>
           </div>
@@ -308,52 +391,106 @@ export default function Portfolio() {
               <h3 id="contacto-heading" className="text-3xl font-bold">Contacto</h3>
             </div>
             <div className={`${isDarkMode ? 'bg-slate-800/40 border-blue-900/30' : 'bg-white/80 border-slate-300/50'} backdrop-blur-sm rounded-2xl p-8 border`}>
-              <form onSubmit={handleSubmit} className="space-y-6" aria-label="Formulario de contacto">
+              
+              {/* Status Messages */}
+              {formStatus.type && (
+                <div className={`mb-6 p-4 rounded-lg flex items-center gap-3 ${
+                  formStatus.type === 'success' 
+                    ? isDarkMode 
+                      ? 'bg-green-900/30 border border-green-700/50 text-green-200' 
+                      : 'bg-green-100/70 border border-green-300/50 text-green-700'
+                    : formStatus.type === 'error'
+                      ? isDarkMode
+                        ? 'bg-red-900/30 border border-red-700/50 text-red-200'
+                        : 'bg-red-100/70 border border-red-300/50 text-red-700'
+                      : isDarkMode
+                        ? 'bg-blue-900/30 border border-blue-700/50 text-blue-200'
+                        : 'bg-blue-100/70 border border-blue-300/50 text-blue-700'
+                }`} role="alert" aria-live="polite">
+                  {formStatus.type === 'success' && <CheckCircle className="w-5 h-5 flex-shrink-0" aria-hidden="true" />}
+                  {formStatus.type === 'error' && <AlertCircle className="w-5 h-5 flex-shrink-0" aria-hidden="true" />}
+                  {formStatus.type === 'loading' && <Loader className="w-5 h-5 flex-shrink-0 animate-spin" aria-hidden="true" />}
+                  <span>{formStatus.message}</span>
+                </div>
+              )}
+
+              <form onSubmit={handleSubmit} className="space-y-6" aria-label="Formulario de contacto" noValidate>
                 <div>
-                  <label htmlFor="nombre" className={`block mb-2 font-medium ${isDarkMode ? 'text-slate-200' : 'text-slate-700'}`}>Nombre</label>
+                  <label htmlFor="nombre" className={`block mb-2 font-medium ${isDarkMode ? 'text-slate-200' : 'text-slate-700'}`}>
+                    Nombre <span className="text-red-400">*</span>
+                  </label>
                   <input
                     id="nombre"
+                    name="name"
                     type="text"
                     required
                     value={formData.name}
-                    onChange={(e) => setFormData({...formData, name: e.target.value})}
-                    className={`w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-colors ${isDarkMode ? 'bg-slate-900/50 border-blue-900/50 text-white' : 'bg-white border-blue-300/50 text-slate-900'}`}
+                    onChange={handleInputChange}
+                    className={`w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-colors ${
+                      formErrors.name ? 'border-red-500' : ''
+                    } ${isDarkMode ? 'bg-slate-900/50 border-blue-900/50 text-white' : 'bg-white border-blue-300/50 text-slate-900'}`}
                     placeholder="Tu nombre"
                     aria-required="true"
+                    aria-invalid={!!formErrors.name}
+                    aria-describedby={formErrors.name ? 'nombre-error' : undefined}
                   />
+                  {formErrors.name && (
+                    <p id="nombre-error" className="text-red-400 text-sm mt-1" role="alert">{formErrors.name}</p>
+                  )}
                 </div>
                 <div>
-                  <label htmlFor="email" className={`block mb-2 font-medium ${isDarkMode ? 'text-slate-200' : 'text-slate-700'}`}>Email</label>
+                  <label htmlFor="email" className={`block mb-2 font-medium ${isDarkMode ? 'text-slate-200' : 'text-slate-700'}`}>
+                    Email <span className="text-red-400">*</span>
+                  </label>
                   <input
                     id="email"
+                    name="email"
                     type="email"
                     required
                     value={formData.email}
-                    onChange={(e) => setFormData({...formData, email: e.target.value})}
-                    className={`w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-colors ${isDarkMode ? 'bg-slate-900/50 border-blue-900/50 text-white' : 'bg-white border-blue-300/50 text-slate-900'}`}
+                    onChange={handleInputChange}
+                    className={`w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-colors ${
+                      formErrors.email ? 'border-red-500' : ''
+                    } ${isDarkMode ? 'bg-slate-900/50 border-blue-900/50 text-white' : 'bg-white border-blue-300/50 text-slate-900'}`}
                     placeholder="tu@email.com"
                     aria-required="true"
+                    aria-invalid={!!formErrors.email}
+                    aria-describedby={formErrors.email ? 'email-error' : undefined}
                   />
+                  {formErrors.email && (
+                    <p id="email-error" className="text-red-400 text-sm mt-1" role="alert">{formErrors.email}</p>
+                  )}
                 </div>
                 <div>
-                  <label htmlFor="mensaje" className={`block mb-2 font-medium ${isDarkMode ? 'text-slate-200' : 'text-slate-700'}`}>Mensaje</label>
+                  <label htmlFor="mensaje" className={`block mb-2 font-medium ${isDarkMode ? 'text-slate-200' : 'text-slate-700'}`}>
+                    Mensaje <span className="text-red-400">*</span> <span className={`text-xs ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>({formData.message.length}/1000)</span>
+                  </label>
                   <textarea
                     id="mensaje"
+                    name="message"
                     required
                     value={formData.message}
-                    onChange={(e) => setFormData({...formData, message: e.target.value})}
+                    onChange={handleInputChange}
                     rows="5"
-                    className={`w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-colors resize-none ${isDarkMode ? 'bg-slate-900/50 border-blue-900/50 text-white' : 'bg-white border-blue-300/50 text-slate-900'}`}
+                    className={`w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-colors resize-none ${
+                      formErrors.message ? 'border-red-500' : ''
+                    } ${isDarkMode ? 'bg-slate-900/50 border-blue-900/50 text-white' : 'bg-white border-blue-300/50 text-slate-900'}`}
                     placeholder="Cuéntame sobre tu oferta de empleo o proyecto..."
                     aria-required="true"
+                    aria-invalid={!!formErrors.message}
+                    aria-describedby={formErrors.message ? 'mensaje-error' : undefined}
                   />
+                  {formErrors.message && (
+                    <p id="mensaje-error" className="text-red-400 text-sm mt-1" role="alert">{formErrors.message}</p>
+                  )}
                 </div>
                 <button
                   type="submit"
+                  disabled={formStatus.type === 'loading'}
                   aria-label="Enviar mensaje de contacto"
-                  className={`w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-semibold py-3 rounded-lg transition-all transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 ${isDarkMode ? 'focus:ring-offset-slate-800' : 'focus:ring-offset-slate-100'}`}
+                  className={`w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-semibold py-3 rounded-lg transition-all transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 ${isDarkMode ? 'focus:ring-offset-slate-800' : 'focus:ring-offset-slate-100'}`}
                 >
-                  Enviar Mensaje
+                  {formStatus.type === 'loading' ? 'Enviando...' : 'Enviar Mensaje'}
                 </button>
               </form>
             </div>
