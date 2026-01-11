@@ -5,6 +5,7 @@ export default function Portfolio() {
   const [activeSection, setActiveSection] = useState('sobre-mi');
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isAvatarModalOpen, setIsAvatarModalOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(() => {
     // Verificar si hay una preferencia guardada, si no, usar dark por defecto
     // SSR-safe: verificar que window existe
@@ -62,14 +63,14 @@ export default function Portfolio() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Prevenir scroll cuando el menú está abierto en móvil
+  // Prevenir scroll cuando el menú está abierto en móvil o modal de avatar abierto
   useEffect(() => {
-    if (isMenuOpen) {
+    if (isMenuOpen || isAvatarModalOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
     }
-  }, [isMenuOpen]);
+  }, [isMenuOpen, isAvatarModalOpen]);
 
   const skillsData = {
     languages: [
@@ -269,11 +270,19 @@ export default function Portfolio() {
         <section className="relative pt-24 sm:pt-32 pb-12 sm:pb-20 px-4 sm:px-6">
           <div className="max-w-6xl mx-auto">
             <div className="text-center space-y-4 sm:space-y-6">
-              <div className="inline-block p-1 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full mb-2 sm:mb-4">
-                <div className={`${isDarkMode ? 'bg-slate-900' : 'bg-white'} rounded-full p-3 sm:p-4`}>
-                  <User className="w-16 h-16 sm:w-20 sm:h-20 text-blue-400" aria-hidden="true" />
+              <button
+                onClick={() => setIsAvatarModalOpen(true)}
+                className="inline-block p-1 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full mb-2 sm:mb-4 cursor-pointer hover:scale-105 transition-transform focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
+                aria-label="Ver imagen de perfil en tamaño completo"
+              >
+                <div className={`${isDarkMode ? 'bg-slate-900' : 'bg-white'} rounded-full p-1`}>
+                  <img
+                    src="/images/avatar.png"
+                    alt="Matías Fernández - Desarrollador Full Stack"
+                    className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover"
+                  />
                 </div>
-              </div>
+              </button>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-2 sm:mb-4 px-4">
                 Desarrollador de software Full Stack
               </h2>
@@ -519,6 +528,44 @@ export default function Portfolio() {
           {/* <p className="mt-2 text-sm sm:text-base">Disponible para oportunidades laborales</p>  */}
         </div>
       </footer>
+
+      {/* Avatar Modal */}
+      {isAvatarModalOpen && (
+        <div
+          className="fixed inset-0 bg-black/90 z-[100] flex items-center justify-center p-4 animate-fadeIn"
+          onClick={() => setIsAvatarModalOpen(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="avatar-modal-title"
+        >
+          <div className="relative max-w-2xl w-full">
+            {/* Close button */}
+            <button
+              onClick={() => setIsAvatarModalOpen(false)}
+              className="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors focus:outline-none focus:ring-2 focus:ring-white rounded-lg p-2"
+              aria-label="Cerrar imagen de perfil"
+            >
+              <X className="w-8 h-8" />
+            </button>
+
+            {/* Avatar image */}
+            <img
+              src="/images/avatar.png"
+              alt="Matías Fernández - Desarrollador Full Stack"
+              className="w-full h-auto rounded-lg shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            />
+
+            {/* Caption */}
+            <p
+              id="avatar-modal-title"
+              className="text-white text-center mt-4 text-lg font-medium"
+            >
+              Matías Fernández - Desarrollador Full Stack
+            </p>
+          </div>
+        </div>
+      )}
 
       <style>{`
         @keyframes fadeIn {
