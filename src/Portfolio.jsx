@@ -108,6 +108,14 @@ export default function Portfolio() {
 
   const projects = [
     {
+      title: 'Expense Tracker',
+      description: 'PWA para registrar y gestionar gastos personales. API REST con FastAPI, base de datos SQLite y frontend React + TypeScript con soporte offline.',
+      tech: ['FastAPI', 'React', 'TypeScript', 'SQLite', 'PWA'],
+      status: 'Completado',
+      github: 'https://github.com/mjfernandez-dev/expense-tracker',
+      demo: 'https://finanzaap.duckdns.org/login'
+    },
+    {
       title: 'Proyecto Universitario 1',
       description: 'Sistema desarrollado con Python para análisis de datos académicos',
       tech: ['Python', 'Pandas', 'Matplotlib'],
@@ -439,27 +447,41 @@ export default function Portfolio() {
                       {project.status}
                     </span>
                   </div>
-                  {project.github !== '#' ? (
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`Ver proyecto ${project.title} en GitHub (se abre en nueva ventana)`}
-                      className={`mt-4 flex items-center gap-2 text-sm sm:text-base transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 ${isDarkMode ? 'text-blue-300 hover:text-blue-200 focus:ring-offset-slate-800' : 'text-blue-600 hover:text-blue-700 focus:ring-offset-slate-100'} rounded`}
-                    >
-                      <Github className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
-                      Ver en GitHub
-                      <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4" aria-hidden="true" />
-                    </a>
-                  ) : (
-                    <span
-                      aria-label={`Repositorio de ${project.title} próximamente en GitHub`}
-                      className={`mt-4 flex items-center gap-2 text-sm sm:text-base opacity-50 cursor-not-allowed select-none ${isDarkMode ? 'text-blue-300' : 'text-blue-600'}`}
-                    >
-                      <Github className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
-                      Próximamente en GitHub
-                    </span>
-                  )}
+                  <div className="mt-4 flex flex-wrap gap-3">
+                    {project.github !== '#' ? (
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`Ver proyecto ${project.title} en GitHub (se abre en nueva ventana)`}
+                        className={`flex items-center gap-2 text-sm sm:text-base transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 ${isDarkMode ? 'text-blue-300 hover:text-blue-200 focus:ring-offset-slate-800' : 'text-blue-600 hover:text-blue-700 focus:ring-offset-slate-100'} rounded`}
+                      >
+                        <Github className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
+                        Ver en GitHub
+                        <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4" aria-hidden="true" />
+                      </a>
+                    ) : (
+                      <span
+                        aria-label={`Repositorio de ${project.title} próximamente en GitHub`}
+                        className={`flex items-center gap-2 text-sm sm:text-base opacity-50 cursor-not-allowed select-none ${isDarkMode ? 'text-blue-300' : 'text-blue-600'}`}
+                      >
+                        <Github className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
+                        Próximamente en GitHub
+                      </span>
+                    )}
+                    {project.demo && (
+                      <a
+                        href={project.demo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`Ver demo en vivo de ${project.title} (se abre en nueva ventana)`}
+                        className={`flex items-center gap-2 text-sm sm:text-base transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 ${isDarkMode ? 'text-cyan-300 hover:text-cyan-200 focus:ring-offset-slate-800' : 'text-cyan-600 hover:text-cyan-700 focus:ring-offset-slate-100'} rounded`}
+                      >
+                        <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
+                        Ver demo
+                      </a>
+                    )}
+                  </div>
                 </article>
               ))}
             </div>
