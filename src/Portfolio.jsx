@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { Github, Linkedin, Mail, Code2, Briefcase, User, ExternalLink, Sun, Moon, Menu, X } from 'lucide-react';
 
 export default function Portfolio() {
@@ -23,13 +23,13 @@ export default function Portfolio() {
     document.documentElement.classList.toggle('dark', isDarkMode);
   }, [isDarkMode]);
 
-  // Navegación por teclado
+  // NavegaciÃ³n por teclado
   useEffect(() => {
     const handleKeyDown = (e) => {
-      // No navegar si el foco está en un input, textarea o select
+      // No navegar si el foco estÃ¡ en un input, textarea o select
       const tag = document.activeElement?.tagName;
       if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
-      // Navegación con flechas en el menú
+      // NavegaciÃ³n con flechas en el menÃº
       if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
         const sections = ['sobre-mi', 'habilidades', 'proyectos', 'contacto'];
         const currentIndex = sections.indexOf(activeSection);
@@ -54,7 +54,7 @@ export default function Portfolio() {
     setIsMenuOpen(false);
   };
 
-  // Cerrar menú al hacer scroll o redimensionar
+  // Cerrar menÃº al hacer scroll o redimensionar
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 768) {
@@ -66,7 +66,7 @@ export default function Portfolio() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Prevenir scroll cuando el menú está abierto en móvil o modal de avatar abierto
+  // Prevenir scroll cuando el menÃº estÃ¡ abierto en mÃ³vil o modal de avatar abierto
   useEffect(() => {
     if (isMenuOpen || isAvatarModalOpen) {
       document.body.style.overflow = 'hidden';
@@ -79,30 +79,31 @@ export default function Portfolio() {
     languages: [
       {
         name: 'Python',
-        icon: '🐍',
+        icon: 'ðŸ',
         tools: ['Flask', 'Django']
       },
       {
         name: 'C#',
-        icon: '⚡',
+        icon: 'âš¡',
         tools: ['.NET Framework', 'WinForms', 'Class Libraries', 'Selenium']
       },
       {
         name: 'JavaScript',
-        icon: '📜',
+        icon: 'ðŸ“œ',
         tools: ['HTML', 'CSS', 'Bootstrap', 'React', 'Vite', 'Tailwind CSS']
       }
     ],
     devtools: [
-      { name: 'Git & GitHub', icon: '🔀' },
-      { name: 'Docker', icon: '🐳' },
-      { name: 'Vercel', icon: '▲' },
-      { name: 'Postman', icon: '📮' },
-      { name: 'Trello', icon: '📋' }
+      { name: 'Git & GitHub', icon: 'ðŸ”€' },
+      { name: 'Docker', icon: 'ðŸ³' },
+      { name: 'Vercel', icon: 'â–²' },
+      { name: 'AWS EC2', icon: 'AWS' },
+      { name: 'Postman', icon: 'ðŸ“®' },
+      { name: 'Trello', icon: 'ðŸ“‹' }
     ],
     databases: [
-      { name: 'MySQL', icon: '🗄️' },
-      { name: 'SQLite', icon: '💾' }
+      { name: 'MySQL', icon: 'ðŸ—„ï¸' },
+      { name: 'SQLite', icon: 'ðŸ’¾' }
     ]
   };
 
@@ -117,21 +118,21 @@ export default function Portfolio() {
     },
     {
       title: 'Proyecto Universitario 1',
-      description: 'Sistema desarrollado con Python para análisis de datos académicos',
+      description: 'Sistema desarrollado con Python para anÃ¡lisis de datos acadÃ©micos',
       tech: ['Python', 'Pandas', 'Matplotlib'],
       status: 'En desarrollo',
       github: '#'
     },
     {
       title: 'Proyecto Universitario 2',
-      description: 'Aplicación web para gestión de tareas con C# y ASP.NET',
+      description: 'AplicaciÃ³n web para gestiÃ³n de tareas con C# y ASP.NET',
       tech: ['C#', 'ASP.NET', 'SQL Server'],
       status: 'En desarrollo',
       github: '#'
     },
     {
       title: 'Desarrollo Profesional',
-      description: 'Herramienta interna desarrollada en JavaScript para optimización de procesos',
+      description: 'Herramienta interna desarrollada en JavaScript para optimizaciÃ³n de procesos',
       tech: ['JavaScript', 'Node.js', 'Express'],
       status: 'Completado',
       github: '#'
@@ -140,7 +141,7 @@ export default function Portfolio() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert('¡Gracias por tu mensaje! Te contactaré pronto.');
+    alert('Â¡Gracias por tu mensaje! Te contactarÃ© pronto.');
     setFormData({ name: '', email: '', message: '' });
   };
 
@@ -151,11 +152,11 @@ export default function Portfolio() {
         Saltar al contenido principal
       </a>
       {/* Navigation */}
-      <nav className={`fixed top-0 w-full ${isDarkMode ? 'bg-slate-900/80 border-blue-900/30' : 'bg-slate-100/90 border-slate-300/50'} backdrop-blur-md z-50 border-b`} role="navigation" aria-label="Navegación principal">
+      <nav className={`fixed top-0 w-full ${isDarkMode ? 'bg-slate-900/80 border-blue-900/30' : 'bg-slate-100/90 border-slate-300/50'} backdrop-blur-md z-50 border-b`} role="navigation" aria-label="NavegaciÃ³n principal">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
           <div className="flex justify-between items-center">
             <h1 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-              &lt;Matías Fernández /&gt;
+              &lt;MatÃ­as FernÃ¡ndez /&gt;
             </h1>
 
             {/* Desktop Navigation */}
@@ -170,16 +171,16 @@ export default function Portfolio() {
               </button>
               <button
                 onClick={() => handleNavClick('sobre-mi')}
-                aria-label="Ir a la sección Sobre Mí"
+                aria-label="Ir a la secciÃ³n Sobre MÃ­"
                 aria-current={activeSection === 'sobre-mi' ? 'page' : undefined}
                 role="menuitem"
                 className={`hover:text-blue-400 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 ${isDarkMode ? 'focus:ring-offset-slate-900' : 'focus:ring-offset-slate-100'} rounded px-2 py-1 ${activeSection === 'sobre-mi' ? 'text-blue-400' : isDarkMode ? 'text-white' : 'text-slate-800'}`}
               >
-                Sobre Mí
+                Sobre MÃ­
               </button>
               <button
                 onClick={() => handleNavClick('habilidades')}
-                aria-label="Ir a la sección Habilidades"
+                aria-label="Ir a la secciÃ³n Habilidades"
                 aria-current={activeSection === 'habilidades' ? 'page' : undefined}
                 role="menuitem"
                 className={`hover:text-blue-400 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 ${isDarkMode ? 'focus:ring-offset-slate-900' : 'focus:ring-offset-slate-100'} rounded px-2 py-1 ${activeSection === 'habilidades' ? 'text-blue-400' : isDarkMode ? 'text-white' : 'text-slate-800'}`}
@@ -188,7 +189,7 @@ export default function Portfolio() {
               </button>
               <button
                 onClick={() => handleNavClick('proyectos')}
-                aria-label="Ir a la sección Proyectos"
+                aria-label="Ir a la secciÃ³n Proyectos"
                 aria-current={activeSection === 'proyectos' ? 'page' : undefined}
                 role="menuitem"
                 className={`hover:text-blue-400 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 ${isDarkMode ? 'focus:ring-offset-slate-900' : 'focus:ring-offset-slate-100'} rounded px-2 py-1 ${activeSection === 'proyectos' ? 'text-blue-400' : isDarkMode ? 'text-white' : 'text-slate-800'}`}
@@ -197,7 +198,7 @@ export default function Portfolio() {
               </button>
               <button
                 onClick={() => handleNavClick('contacto')}
-                aria-label="Ir a la sección Contacto"
+                aria-label="Ir a la secciÃ³n Contacto"
                 aria-current={activeSection === 'contacto' ? 'page' : undefined}
                 role="menuitem"
                 className={`hover:text-blue-400 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 ${isDarkMode ? 'focus:ring-offset-slate-900' : 'focus:ring-offset-slate-100'} rounded px-2 py-1 ${activeSection === 'contacto' ? 'text-blue-400' : isDarkMode ? 'text-white' : 'text-slate-800'}`}
@@ -217,7 +218,7 @@ export default function Portfolio() {
               </button>
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                aria-label={isMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
+                aria-label={isMenuOpen ? 'Cerrar menÃº' : 'Abrir menÃº'}
                 aria-expanded={isMenuOpen}
                 className={`p-2 rounded-lg transition-all focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 ${isDarkMode ? 'hover:bg-slate-800 text-blue-400 focus:ring-offset-slate-900' : 'hover:bg-slate-200 text-blue-600 focus:ring-offset-slate-100'}`}
               >
@@ -234,7 +235,7 @@ export default function Portfolio() {
                 aria-current={activeSection === 'sobre-mi' ? 'page' : undefined}
                 className={`w-full text-left px-4 py-3 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 ${isDarkMode ? 'focus:ring-offset-slate-900' : 'focus:ring-offset-slate-100'} ${activeSection === 'sobre-mi' ? 'bg-blue-500/20 text-blue-400' : isDarkMode ? 'hover:bg-slate-800/50 text-white' : 'hover:bg-slate-200/50 text-slate-800'}`}
               >
-                Sobre Mí
+                Sobre MÃ­
               </button>
               <button
                 onClick={() => handleNavClick('habilidades')}
@@ -284,12 +285,12 @@ export default function Portfolio() {
               <button
                 onClick={() => setIsAvatarModalOpen(true)}
                 className="inline-block p-1 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full mb-2 sm:mb-4 cursor-pointer hover:scale-105 transition-transform focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
-                aria-label="Ver imagen de perfil en tamaño completo"
+                aria-label="Ver imagen de perfil en tamaÃ±o completo"
               >
                 <div className={`${isDarkMode ? 'bg-slate-900' : 'bg-white'} rounded-full p-1`}>
                   <img
                     src="/images/avatar.png"
-                    alt="Matías Fernández - Desarrollador Full Stack"
+                    alt="MatÃ­as FernÃ¡ndez - Desarrollador Full Stack"
                     className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover"
                   />
                 </div>
@@ -298,7 +299,7 @@ export default function Portfolio() {
                 Desarrollador de software Full Stack
               </h2>
               <p className={`text-base sm:text-lg md:text-xl max-w-2xl mx-auto px-4 ${isDarkMode ? 'text-slate-200' : 'text-slate-600'}`}>
-                Graduado en desarrollo desarrollo de software. Enfocado por crear soluciones a problemas reales. Aplicaciones web, de escritorio y automatización de procesos.
+                Graduado en desarrollo desarrollo de software. Enfocado por crear soluciones a problemas reales. Aplicaciones web, de escritorio y automatizaciÃ³n de procesos.
               </p>
               <div className="flex gap-3 sm:gap-4 justify-center mt-6 sm:mt-8" role="list">
                 <a
@@ -321,7 +322,7 @@ export default function Portfolio() {
                 </a>
                 <a
                   href="mailto:mjfernandez.dev@gmail.com"
-                  aria-label="Enviar un correo electrónico a mjfernandez.dev@gmail.com"
+                  aria-label="Enviar un correo electrÃ³nico a mjfernandez.dev@gmail.com"
                   className={`p-2.5 sm:p-3 ${isDarkMode ? 'bg-blue-900/30 hover:bg-blue-800/50 border-blue-700/50' : 'bg-slate-200/60 hover:bg-slate-300/70 border-slate-300/50'} rounded-lg transition-colors border focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 ${isDarkMode ? 'focus:ring-offset-slate-900' : 'focus:ring-offset-slate-100'}`}
                 >
                   <Mail className="w-5 h-5 sm:w-6 sm:h-6" aria-hidden="true" />
@@ -334,23 +335,23 @@ export default function Portfolio() {
         {/* Main Content */}
         <main id="main-content" className="relative max-w-6xl mx-auto px-4 sm:px-6 pb-12 sm:pb-20" role="main">
 
-        {/* Sobre Mí */}
+        {/* Sobre MÃ­ */}
         {activeSection === 'sobre-mi' && (
           <div className={`${isDarkMode ? 'bg-slate-800/40 border-blue-900/30' : 'bg-white/80 border-slate-300/50'} backdrop-blur-sm rounded-2xl p-6 sm:p-8 border animate-fadeIn`} role="region" aria-labelledby="sobre-mi-heading">
             <div className="flex items-center gap-3 mb-4 sm:mb-6">
               <User className="w-7 h-7 sm:w-8 sm:h-8 text-blue-400" aria-hidden="true" />
-              <h3 id="sobre-mi-heading" className="text-2xl sm:text-3xl font-bold">Sobre Mí</h3>
+              <h3 id="sobre-mi-heading" className="text-2xl sm:text-3xl font-bold">Sobre MÃ­</h3>
             </div>
             <div className={`space-y-4 text-base sm:text-lg ${isDarkMode ? 'text-slate-200' : 'text-slate-700'}`}>
               <p>
-                Soy desarrollador de software con experiencia práctica en Python, C# y JavaScript.
+                Soy desarrollador de software con experiencia prÃ¡ctica en Python, C# y JavaScript.
               </p>
               <p>
-                Mi enfoque está en crear soluciones eficientes y escalables, combinando lo mejor de la
-                teoría académica con las prácticas profesionales del mundo real.
+                Mi enfoque estÃ¡ en crear soluciones eficientes y escalables, combinando lo mejor de la
+                teorÃ­a acadÃ©mica con las prÃ¡cticas profesionales del mundo real.
               </p>
               <p>
-                Busco continuamente aprender nuevas tecnologías y mejorar mis habilidades para ofrecer
+                Busco continuamente aprender nuevas tecnologÃ­as y mejorar mis habilidades para ofrecer
                 soluciones que generen impacto positivo.
               </p>
             </div>
@@ -362,7 +363,7 @@ export default function Portfolio() {
           <div className="space-y-8 sm:space-y-10 animate-fadeIn" role="region" aria-labelledby="habilidades-heading">
             <div className="flex items-center gap-3 mb-6 sm:mb-8">
               <Code2 className="w-7 h-7 sm:w-8 sm:h-8 text-blue-400" aria-hidden="true" />
-              <h3 id="habilidades-heading" className="text-2xl sm:text-3xl font-bold">Habilidades Técnicas</h3>
+              <h3 id="habilidades-heading" className="text-2xl sm:text-3xl font-bold">Habilidades TÃ©cnicas</h3>
             </div>
 
             {/* Lenguajes y Frameworks */}
@@ -428,7 +429,7 @@ export default function Portfolio() {
                   <div className="flex-1">
                     <h4 className={`text-lg sm:text-xl font-bold mb-3 ${isDarkMode ? 'text-blue-200' : 'text-blue-700'}`}>{project.title}</h4>
                     <p className={`mb-4 text-sm sm:text-base ${isDarkMode ? 'text-slate-200' : 'text-slate-700'}`}>{project.description}</p>
-                    <div className="flex flex-wrap gap-2 mb-4" role="list" aria-label="Tecnologías utilizadas">
+                    <div className="flex flex-wrap gap-2 mb-4" role="list" aria-label="TecnologÃ­as utilizadas">
                       {project.tech.map((tech, i) => (
                         <span key={i} className={`px-2.5 sm:px-3 py-1 rounded-full text-xs sm:text-sm border ${isDarkMode ? 'bg-blue-900/40 text-blue-200 border-blue-700/50' : 'bg-blue-100/70 text-blue-700 border-blue-300/50'}`} role="listitem">
                           {tech}
@@ -462,11 +463,11 @@ export default function Portfolio() {
                       </a>
                     ) : (
                       <span
-                        aria-label={`Repositorio de ${project.title} próximamente en GitHub`}
+                        aria-label={`Repositorio de ${project.title} prÃ³ximamente en GitHub`}
                         className={`flex items-center gap-2 text-sm sm:text-base opacity-50 cursor-not-allowed select-none ${isDarkMode ? 'text-blue-300' : 'text-blue-600'}`}
                       >
                         <Github className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
-                        Próximamente en GitHub
+                        PrÃ³ximamente en GitHub
                       </span>
                     )}
                     {project.demo && (
@@ -487,8 +488,8 @@ export default function Portfolio() {
             </div>
             <div className={`${isDarkMode ? 'bg-blue-900/20 border-blue-700/50' : 'bg-slate-200/60 border-slate-300/50'} backdrop-blur-sm rounded-xl p-4 sm:p-6 border mt-6 sm:mt-8`} role="note" aria-label="Nota sobre los proyectos">
               <p className={`text-center text-sm sm:text-base ${isDarkMode ? 'text-slate-200' : 'text-slate-700'}`}>
-                💡 <strong>Nota:</strong> Estos proyectos están siendo consolidados en mi perfil de GitHub.
-                Los enlaces se actualizarán próximamente con los repositorios completos.
+                ðŸ’¡ <strong>Nota:</strong> Estos proyectos estÃ¡n siendo consolidados en mi perfil de GitHub.
+                Los enlaces se actualizarÃ¡n prÃ³ximamente con los repositorios completos.
               </p>
             </div>
           </div>
@@ -538,7 +539,7 @@ export default function Portfolio() {
                     onChange={(e) => setFormData({...formData, message: e.target.value})}
                     rows="5"
                     className={`w-full border rounded-lg px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-colors resize-none ${isDarkMode ? 'bg-slate-900/50 border-blue-900/50 text-white placeholder:text-slate-400' : 'bg-white border-blue-300/50 text-slate-900 placeholder:text-slate-500'}`}
-                    placeholder="Cuéntame sobre tu oferta de empleo o proyecto..."
+                    placeholder="CuÃ©ntame sobre tu oferta de empleo o proyecto..."
                     aria-required="true"
                   />
                 </div>
@@ -559,7 +560,7 @@ export default function Portfolio() {
       {/* Footer */}
       <footer className={`relative ${isDarkMode ? 'bg-slate-900/80 border-blue-900/30' : 'bg-slate-100/90 border-slate-300/50'} border-t py-6 sm:py-8`}>
         <div className={`max-w-6xl mx-auto px-4 sm:px-6 text-center ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
-          <p className="text-sm sm:text-base">© 2025 - Desarrollado con React, Vite y Tailwind CSS</p>
+          <p className="text-sm sm:text-base">Â© 2025 - Desarrollado con React, Vite y Tailwind CSS</p>
           {/* <p className="mt-2 text-sm sm:text-base">Disponible para oportunidades laborales</p>  */}
         </div>
       </footer>
@@ -586,7 +587,7 @@ export default function Portfolio() {
             {/* Avatar image */}
             <img
               src="/images/avatar.png"
-              alt="Matías Fernández - Desarrollador Full Stack"
+              alt="MatÃ­as FernÃ¡ndez - Desarrollador Full Stack"
               className="w-full h-auto rounded-lg shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             />
@@ -596,7 +597,7 @@ export default function Portfolio() {
               id="avatar-modal-title"
               className="text-white text-center mt-4 text-lg font-medium"
             >
-              Matías Fernández - Desarrollador Full Stack
+              MatÃ­as FernÃ¡ndez - Desarrollador Full Stack
             </p>
           </div>
         </div>
