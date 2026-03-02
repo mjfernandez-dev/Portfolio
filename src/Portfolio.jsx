@@ -110,7 +110,7 @@ export default function Portfolio() {
   const projects = [
     {
       title: 'MJF.ARCA.SDK',
-      description: 'SDK comercial en .NET para integrar con ARCA (sistema de facturación electrónica de Argentina, ex-AFIP). Implementa autenticación WSAA con firma PKCS#7 CMS, facturación electrónica WSFE y cumplimiento de RG 5616/2024. Multi-targeting: .NET Framework 4.8, .NET Standard 2.0, .NET 8 y .NET 9. Incluye app companion MJF.ARCA.Tester (WPF) y validación contra entorno de homologación real.',
+      description: 'SDK .NET para facturación electrónica con ARCA (ex-AFIP). Implementa WSAA (firma PKCS#7 CMS) y WSFE, cumpliendo RG 5616/2024. Soporta .NET Framework 4.8, .NET Standard 2.0, .NET 8/9. Incluye companion app MJF.ARCA.Tester (WPF) con validación contra homologación real.',
       tech: ['C#', '.NET 8/9', '.NET Framework 4.8', 'WSAA', 'WSFE', 'NuGet', 'WPF', 'PKCS#7'],
       status: 'Publicado',
       github: '#',
