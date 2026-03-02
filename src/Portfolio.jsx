@@ -109,6 +109,14 @@ export default function Portfolio() {
 
   const projects = [
     {
+      title: 'MJF.ARCA.SDK',
+      description: 'SDK comercial en .NET para integrar con ARCA (sistema de facturación electrónica de Argentina, ex-AFIP). Implementa autenticación WSAA con firma PKCS#7 CMS, facturación electrónica WSFE y cumplimiento de RG 5616/2024. Multi-targeting: .NET Framework 4.8, .NET Standard 2.0, .NET 8 y .NET 9. Incluye app companion MJF.ARCA.Tester (WPF) y validación contra entorno de homologación real.',
+      tech: ['C#', '.NET 8/9', '.NET Framework 4.8', 'WSAA', 'WSFE', 'NuGet', 'WPF', 'PKCS#7'],
+      status: 'Publicado',
+      github: '#',
+      nuget: 'https://www.nuget.org/packages/MJF.ARCA.SDK'
+    },
+    {
       title: 'Expense Tracker',
       description: 'PWA para registrar y gestionar gastos personales. API REST con FastAPI, base de datos SQLite y frontend React + TypeScript con soporte offline.',
       tech: ['FastAPI', 'React', 'TypeScript', 'SQLite', 'PWA'],
@@ -441,9 +449,13 @@ export default function Portfolio() {
                         ? isDarkMode
                           ? 'bg-green-900/40 text-green-200 border border-green-700/50'
                           : 'bg-green-100/70 text-green-700 border border-green-300/50'
-                        : isDarkMode
-                          ? 'bg-yellow-900/40 text-yellow-200 border border-yellow-700/50'
-                          : 'bg-yellow-100/70 text-yellow-700 border border-yellow-300/50'
+                        : project.status === 'Publicado'
+                          ? isDarkMode
+                            ? 'bg-purple-900/40 text-purple-200 border border-purple-700/50'
+                            : 'bg-purple-100/70 text-purple-700 border border-purple-300/50'
+                          : isDarkMode
+                            ? 'bg-yellow-900/40 text-yellow-200 border border-yellow-700/50'
+                            : 'bg-yellow-100/70 text-yellow-700 border border-yellow-300/50'
                     }`} aria-label={`Estado del proyecto: ${project.status}`}>
                       {project.status}
                     </span>
@@ -480,6 +492,18 @@ export default function Portfolio() {
                       >
                         <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
                         Ver demo
+                      </a>
+                    )}
+                    {project.nuget && (
+                      <a
+                        href={project.nuget}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`Ver ${project.title} en NuGet (se abre en nueva ventana)`}
+                        className={`flex items-center gap-2 text-sm sm:text-base transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 ${isDarkMode ? 'text-purple-300 hover:text-purple-200 focus:ring-offset-slate-800' : 'text-purple-600 hover:text-purple-700 focus:ring-offset-slate-100'} rounded`}
+                      >
+                        <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
+                        Ver en NuGet
                       </a>
                     )}
                   </div>
