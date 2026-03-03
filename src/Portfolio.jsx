@@ -1,5 +1,96 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Github, Linkedin, Mail, Code2, Briefcase, User, ExternalLink, Sun, Moon, Menu, X } from 'lucide-react';
+
+const skillsData = {
+  languages: [
+    {
+      name: 'Python',
+      icon: '🐍',
+      tools: ['Flask', 'Django']
+    },
+    {
+      name: 'C#',
+      icon: '⚡',
+      tools: ['.NET Framework', 'WinForms', 'Class Libraries', 'Selenium']
+    },
+    {
+      name: 'JavaScript',
+      icon: '📜',
+      tools: ['HTML', 'CSS', 'Bootstrap', 'React', 'Vite', 'Tailwind CSS']
+    }
+  ],
+  devtools: [
+    { name: 'Git & GitHub', icon: '🔀' },
+    { name: 'Docker', icon: '🐳' },
+    { name: 'Vercel', icon: '▲' },
+    { name: 'AWS EC2', icon: 'AWS' },
+    { name: 'Postman', icon: '📮' },
+    { name: 'Trello', icon: '📋' }
+  ],
+  databases: [
+    { name: 'MySQL', icon: '🗄️' },
+    { name: 'SQLite', icon: '💾' }
+  ]
+};
+
+const projects = [
+  {
+    title: 'MJF.ARCA.SDK',
+    description: 'SDK .NET para facturación electrónica con ARCA (ex-AFIP). Implementa WSAA (firma PKCS#7 CMS) y WSFE, cumpliendo RG 5616/2024. Soporta .NET Framework 4.8, .NET Standard 2.0, .NET 8/9. Incluye companion app MJF.ARCA.Tester (WPF) con validación contra homologación real.',
+    tech: ['C#', '.NET 8/9', '.NET Framework 4.8', 'WSAA', 'WSFE', 'NuGet', 'WPF', 'PKCS#7'],
+    status: 'Publicado',
+    github: '#',
+    nuget: 'https://www.nuget.org/packages/MJF.ARCA.SDK'
+  },
+  {
+    title: 'Expense Tracker',
+    description: 'PWA para registrar y gestionar gastos personales. API REST con FastAPI, base de datos SQLite y frontend React + TypeScript con soporte offline.',
+    tech: ['FastAPI', 'React', 'TypeScript', 'SQLite', 'PWA'],
+    status: 'Completado',
+    github: 'https://github.com/mjfernandez-dev/expense-tracker',
+    demo: 'https://finanzaap.duckdns.org/login'
+  },
+  {
+    title: 'Proyecto Universitario 1',
+    description: 'Sistema desarrollado con Python para análisis de datos académicos',
+    tech: ['Python', 'Pandas', 'Matplotlib'],
+    status: 'En desarrollo',
+    github: '#'
+  },
+  {
+    title: 'Proyecto Universitario 2',
+    description: 'Aplicación web para gestión de tareas con C# y ASP.NET',
+    tech: ['C#', 'ASP.NET', 'SQL Server'],
+    status: 'En desarrollo',
+    github: '#'
+  },
+  {
+    title: 'Desarrollo Profesional',
+    description: 'Herramienta interna desarrollada en JavaScript para optimización de procesos',
+    tech: ['JavaScript', 'Node.js', 'Express'],
+    status: 'Completado',
+    github: '#'
+  }
+];
+
+const getStatusStyles = (status, isDarkMode) => {
+  const mode = isDarkMode ? 'dark' : 'light';
+  const map = {
+    'Completado': {
+      dark: 'bg-green-900/40 text-green-200 border border-green-700/50',
+      light: 'bg-green-100/70 text-green-700 border border-green-300/50'
+    },
+    'Publicado': {
+      dark: 'bg-purple-900/40 text-purple-200 border border-purple-700/50',
+      light: 'bg-purple-100/70 text-purple-700 border border-purple-300/50'
+    },
+    'En desarrollo': {
+      dark: 'bg-yellow-900/40 text-yellow-200 border border-yellow-700/50',
+      light: 'bg-yellow-100/70 text-yellow-700 border border-yellow-300/50'
+    }
+  };
+  return (map[status] ?? map['En desarrollo'])[mode];
+};
 
 export default function Portfolio() {
   const [activeSection, setActiveSection] = useState('sobre-mi');
@@ -74,78 +165,6 @@ export default function Portfolio() {
       document.body.style.overflow = 'unset';
     }
   }, [isMenuOpen, isAvatarModalOpen]);
-
-  const skillsData = {
-    languages: [
-      {
-        name: 'Python',
-        icon: '🐍',
-        tools: ['Flask', 'Django']
-      },
-      {
-        name: 'C#',
-        icon: '⚡',
-        tools: ['.NET Framework', 'WinForms', 'Class Libraries', 'Selenium']
-      },
-      {
-        name: 'JavaScript',
-        icon: '📜',
-        tools: ['HTML', 'CSS', 'Bootstrap', 'React', 'Vite', 'Tailwind CSS']
-      }
-    ],
-    devtools: [
-      { name: 'Git & GitHub', icon: '🔀' },
-      { name: 'Docker', icon: '🐳' },
-      { name: 'Vercel', icon: '▲' },
-      { name: 'AWS EC2', icon: 'AWS' },
-      { name: 'Postman', icon: '📮' },
-      { name: 'Trello', icon: '📋' }
-    ],
-    databases: [
-      { name: 'MySQL', icon: '🗄️' },
-      { name: 'SQLite', icon: '💾' }
-    ]
-  };
-
-  const projects = [
-    {
-      title: 'MJF.ARCA.SDK',
-      description: 'SDK .NET para facturación electrónica con ARCA (ex-AFIP). Implementa WSAA (firma PKCS#7 CMS) y WSFE, cumpliendo RG 5616/2024. Soporta .NET Framework 4.8, .NET Standard 2.0, .NET 8/9. Incluye companion app MJF.ARCA.Tester (WPF) con validación contra homologación real.',
-      tech: ['C#', '.NET 8/9', '.NET Framework 4.8', 'WSAA', 'WSFE', 'NuGet', 'WPF', 'PKCS#7'],
-      status: 'Publicado',
-      github: '#',
-      nuget: 'https://www.nuget.org/packages/MJF.ARCA.SDK'
-    },
-    {
-      title: 'Expense Tracker',
-      description: 'PWA para registrar y gestionar gastos personales. API REST con FastAPI, base de datos SQLite y frontend React + TypeScript con soporte offline.',
-      tech: ['FastAPI', 'React', 'TypeScript', 'SQLite', 'PWA'],
-      status: 'Completado',
-      github: 'https://github.com/mjfernandez-dev/expense-tracker',
-      demo: 'https://finanzaap.duckdns.org/login'
-    },
-    {
-      title: 'Proyecto Universitario 1',
-      description: 'Sistema desarrollado con Python para análisis de datos académicos',
-      tech: ['Python', 'Pandas', 'Matplotlib'],
-      status: 'En desarrollo',
-      github: '#'
-    },
-    {
-      title: 'Proyecto Universitario 2',
-      description: 'Aplicación web para gestión de tareas con C# y ASP.NET',
-      tech: ['C#', 'ASP.NET', 'SQL Server'],
-      status: 'En desarrollo',
-      github: '#'
-    },
-    {
-      title: 'Desarrollo Profesional',
-      description: 'Herramienta interna desarrollada en JavaScript para optimización de procesos',
-      tech: ['JavaScript', 'Node.js', 'Express'],
-      status: 'Completado',
-      github: '#'
-    }
-  ];
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -444,19 +463,7 @@ export default function Portfolio() {
                         </span>
                       ))}
                     </div>
-                    <span className={`inline-block px-2.5 sm:px-3 py-1 rounded-full text-xs sm:text-sm ${
-                      project.status === 'Completado'
-                        ? isDarkMode
-                          ? 'bg-green-900/40 text-green-200 border border-green-700/50'
-                          : 'bg-green-100/70 text-green-700 border border-green-300/50'
-                        : project.status === 'Publicado'
-                          ? isDarkMode
-                            ? 'bg-purple-900/40 text-purple-200 border border-purple-700/50'
-                            : 'bg-purple-100/70 text-purple-700 border border-purple-300/50'
-                          : isDarkMode
-                            ? 'bg-yellow-900/40 text-yellow-200 border border-yellow-700/50'
-                            : 'bg-yellow-100/70 text-yellow-700 border border-yellow-300/50'
-                    }`} aria-label={`Estado del proyecto: ${project.status}`}>
+                    <span className={`inline-block px-2.5 sm:px-3 py-1 rounded-full text-xs sm:text-sm ${getStatusStyles(project.status, isDarkMode)}`} aria-label={`Estado del proyecto: ${project.status}`}>
                       {project.status}
                     </span>
                   </div>
