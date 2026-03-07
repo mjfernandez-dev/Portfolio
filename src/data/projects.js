@@ -23,25 +23,4 @@ export const projects = [
     github: 'https://github.com/mjfernandez-dev/expense-tracker',
     demo: 'https://finanzaap.duckdns.org/login'
   },
-  {
-    title: 'Proyecto Universitario 1',
-    description: 'Sistema desarrollado con Python para análisis de datos académicos',
-    tech: ['Python', 'Pandas', 'Matplotlib'],
-    status: 'En desarrollo',
-    github: '#'
-  },
-  {
-    title: 'Proyecto Universitario 2',
-    description: 'Aplicación web para gestión de tareas con C# y ASP.NET',
-    tech: ['C#', 'ASP.NET', 'SQL Server'],
-    status: 'En desarrollo',
-    github: '#'
-  },
-  {
-    title: 'Desarrollo Profesional',
-    description: 'Herramienta interna desarrollada en JavaScript para optimización de procesos',
-    tech: ['JavaScript', 'Node.js', 'Express'],
-    status: 'Completado',
-    github: '#'
-  }
 ];
