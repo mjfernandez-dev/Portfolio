@@ -64,7 +64,7 @@ export default function Habilidades({ isDarkMode }) {
         <h4 className={`text-lg sm:text-xl font-semibold mb-4 ${t(isDarkMode, 'text-purple-300', 'text-purple-700')}`}>
           Bases de Datos
         </h4>
-        <div className="grid grid-cols-2 gap-4 sm:gap-6 max-w-2xl">
+        <div className="grid grid-cols-3 gap-4 sm:gap-6 max-w-2xl">
           {skillsData.databases.map((db, index) => (
             <div
               key={index}
