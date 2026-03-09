@@ -6,28 +6,21 @@ import { t, getStatusStyles } from '../utils/theme';
 export default function ProjectCard({ project, isDarkMode }) {
   return (
     <article
-      className={`group relative ${t(isDarkMode,
-        'border-white/10 hover:border-indigo-500/50 focus-within:ring-offset-black',
-        'bg-white/80 border-slate-300/50 hover:border-slate-400/70 focus-within:ring-offset-white'
-      )} backdrop-blur-sm rounded-xl border transition-all flex flex-col focus-within:ring-2 focus-within:ring-blue-400 focus-within:ring-offset-2 h-full hover:shadow-[0_0_30px_rgba(99,102,241,0.2)] hover:-translate-y-1`}
+      className={`group relative backdrop-blur-sm rounded-xl border transition-all flex flex-col h-full focus-within:ring-2 focus-within:ring-indigo-400 focus-within:ring-offset-2 hover:-translate-y-1 ${t(isDarkMode,
+        'bg-white/[0.04] border-white/10 hover:border-indigo-500/50 hover:shadow-[0_0_30px_rgba(99,102,241,0.2)] focus-within:ring-offset-black',
+        'bg-white border-slate-200 hover:border-indigo-300/60 hover:shadow-[0_8px_30px_rgba(99,102,241,0.12)] focus-within:ring-offset-white'
+      )}`}
       tabIndex={0}
     >
-      {/* Glow overlay (dark mode only) */}
       {isDarkMode && (
-        <div
-          className="absolute -inset-px rounded-xl bg-gradient-to-r from-indigo-600/20 to-cyan-600/20 opacity-0 group-hover:opacity-100 blur-sm transition-all duration-500 pointer-events-none"
-          aria-hidden="true"
-        />
-      )}
-      {isDarkMode && (
-        <div className="absolute inset-0 rounded-xl bg-white/[0.03]" aria-hidden="true" />
+        <div className="absolute -inset-px rounded-xl bg-gradient-to-r from-indigo-600/20 to-cyan-600/20 opacity-0 group-hover:opacity-100 blur-sm transition-all duration-500 pointer-events-none" aria-hidden="true" />
       )}
 
       <div className="relative flex-1 p-5 sm:p-6">
-        <h4 className={`text-lg sm:text-xl font-bold mb-3 ${t(isDarkMode, 'text-indigo-200', 'text-blue-700')}`}>
+        <h4 className={`text-lg sm:text-xl font-bold mb-3 ${t(isDarkMode, 'text-indigo-200', 'text-indigo-700')}`}>
           {project.title}
         </h4>
-        <p className={`mb-4 text-sm sm:text-base ${t(isDarkMode, 'text-slate-300', 'text-slate-700')}`}>
+        <p className={`mb-4 text-sm sm:text-base ${t(isDarkMode, 'text-slate-300', 'text-slate-600')}`}>
           {project.description}
         </p>
         <div className="flex flex-wrap gap-2 mb-4" role="list" aria-label="Tecnologías utilizadas">
@@ -37,7 +30,7 @@ export default function ProjectCard({ project, isDarkMode }) {
               whileHover={{ scale: 1.05, y: -2 }}
               className={`px-2.5 sm:px-3 py-1 rounded-full text-xs sm:text-sm border cursor-default ${t(isDarkMode,
                 'bg-indigo-900/40 text-indigo-200 border-indigo-700/40',
-                'bg-blue-100/70 text-blue-700 border-blue-300/50'
+                'bg-indigo-50 text-indigo-700 border-indigo-200/80'
               )}`}
               role="listitem"
             >
@@ -60,10 +53,10 @@ export default function ProjectCard({ project, isDarkMode }) {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`Ver proyecto ${project.title} en GitHub (se abre en nueva ventana)`}
-            className={`flex items-center gap-2 text-sm sm:text-base transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 ${t(isDarkMode,
+            className={`flex items-center gap-2 text-sm sm:text-base transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 rounded ${t(isDarkMode,
               'text-indigo-300 hover:text-indigo-200 focus:ring-offset-black',
-              'text-blue-600 hover:text-blue-700 focus:ring-offset-slate-100'
-            )} rounded`}
+              'text-indigo-600 hover:text-indigo-700 focus:ring-offset-white'
+            )}`}
           >
             <Github className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
             Ver en GitHub
@@ -72,7 +65,7 @@ export default function ProjectCard({ project, isDarkMode }) {
         ) : (
           <span
             aria-label={`Repositorio de ${project.title} próximamente en GitHub`}
-            className={`flex items-center gap-2 text-sm sm:text-base opacity-50 cursor-not-allowed select-none ${t(isDarkMode, 'text-indigo-300', 'text-blue-600')}`}
+            className={`flex items-center gap-2 text-sm sm:text-base opacity-40 cursor-not-allowed select-none ${t(isDarkMode, 'text-indigo-300', 'text-indigo-600')}`}
           >
             <Github className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
             Próximamente en GitHub
@@ -84,10 +77,10 @@ export default function ProjectCard({ project, isDarkMode }) {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`Ver demo en vivo de ${project.title} (se abre en nueva ventana)`}
-            className={`flex items-center gap-2 text-sm sm:text-base transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 ${t(isDarkMode,
+            className={`flex items-center gap-2 text-sm sm:text-base transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 rounded ${t(isDarkMode,
               'text-cyan-300 hover:text-cyan-200 focus:ring-offset-black',
-              'text-cyan-600 hover:text-cyan-700 focus:ring-offset-slate-100'
-            )} rounded`}
+              'text-cyan-600 hover:text-cyan-700 focus:ring-offset-white'
+            )}`}
           >
             <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
             Ver demo
@@ -99,10 +92,10 @@ export default function ProjectCard({ project, isDarkMode }) {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`Ver ${project.title} en NuGet (se abre en nueva ventana)`}
-            className={`flex items-center gap-2 text-sm sm:text-base transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 ${t(isDarkMode,
+            className={`flex items-center gap-2 text-sm sm:text-base transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 rounded ${t(isDarkMode,
               'text-blue-300 hover:text-blue-200 focus:ring-offset-black',
-              'text-purple-600 hover:text-purple-700 focus:ring-offset-slate-100'
-            )} rounded`}
+              'text-blue-600 hover:text-blue-700 focus:ring-offset-white'
+            )}`}
           >
             <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
             Ver en NuGet

@@ -29,17 +29,14 @@ export default function Portfolio() {
   const [isAvatarModalOpen, setIsAvatarModalOpen] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
 
-  // Use ref so keyboard handler always has latest activeSection without re-registering
   const activeSectionRef = useRef(activeSection);
   useEffect(() => { activeSectionRef.current = activeSection; }, [activeSection]);
 
-  // Scroll to section smoothly
   const handleNavClick = useCallback((section) => {
     setIsMenuOpen(false);
     document.getElementById(section)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, []);
 
-  // Detect active section via IntersectionObserver
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -56,14 +53,12 @@ export default function Portfolio() {
     return () => observer.disconnect();
   }, []);
 
-  // Show/hide scroll-to-top button
   useEffect(() => {
     const handleScroll = () => setShowScrollTop(window.scrollY > 400);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Keyboard navigation (ArrowLeft/Right scroll to adjacent section)
   useEffect(() => {
     const handleKeyDown = (e) => {
       const tag = document.activeElement?.tagName;
@@ -79,19 +74,16 @@ export default function Portfolio() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // Lock scroll when mobile menu or modal is open
   useEffect(() => {
     document.body.style.overflow = isMenuOpen || isAvatarModalOpen ? 'hidden' : '';
   }, [isMenuOpen, isAvatarModalOpen]);
 
-  // Close mobile menu on resize
   useEffect(() => {
     const handleResize = () => { if (window.innerWidth >= 768) setIsMenuOpen(false); };
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Floating particles - generated once
   const particles = useMemo(() =>
     Array.from({ length: 20 }, (_, i) => ({
       id: i,
@@ -102,15 +94,23 @@ export default function Portfolio() {
     })), []);
 
   const navBtnClass = (section) =>
-    `relative hover:text-blue-400 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 ${t(isDarkMode, 'focus:ring-offset-black', 'focus:ring-offset-slate-100')} rounded px-2 py-1 ${activeSection === section ? 'text-blue-400' : t(isDarkMode, 'text-white/80', 'text-slate-800')}`;
+    `relative transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 ${t(isDarkMode, 'focus:ring-offset-black', 'focus:ring-offset-white')} rounded px-2 py-1 ${
+      activeSection === section
+        ? 'text-indigo-500'
+        : t(isDarkMode, 'text-white/80 hover:text-white', 'text-slate-600 hover:text-indigo-600')
+    }`;
 
   const mobileNavBtnClass = (section) =>
-    `w-full text-left px-4 py-3 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 ${t(isDarkMode, 'focus:ring-offset-black', 'focus:ring-offset-slate-100')} ${activeSection === section ? 'bg-indigo-500/20 text-blue-400' : t(isDarkMode, 'hover:bg-white/5 text-white/80', 'hover:bg-slate-200/50 text-slate-800')}`;
+    `w-full text-left px-4 py-3 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 ${t(isDarkMode, 'focus:ring-offset-black', 'focus:ring-offset-white')} ${
+      activeSection === section
+        ? t(isDarkMode, 'bg-indigo-500/20 text-indigo-400', 'bg-indigo-50 text-indigo-600')
+        : t(isDarkMode, 'hover:bg-white/5 text-white/80', 'hover:bg-slate-100 text-slate-600')
+    }`;
 
   const themeBtnClass = (mobile = false) =>
-    `${mobile ? 'p-2' : 'p-2.5'} rounded-lg transition-all focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 ${t(isDarkMode,
+    `${mobile ? 'p-2' : 'p-2.5'} rounded-lg transition-all focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 ${t(isDarkMode,
       'hover:bg-white/10 text-yellow-400 bg-yellow-400/10 border border-yellow-400/20 focus:ring-offset-black',
-      'hover:bg-slate-200 text-slate-800 bg-slate-200/50 border border-slate-300 focus:ring-offset-slate-100'
+      'hover:bg-indigo-50 text-slate-600 bg-white border border-slate-200 focus:ring-offset-white'
     )}`;
 
   return (
@@ -151,14 +151,24 @@ export default function Portfolio() {
         </>
       ) : (
         <>
-          <div className="fixed inset-0 bg-cover bg-center bg-no-repeat -z-10" style={{ backgroundImage: 'url(/images/hero-bg.webp)' }} aria-hidden="true" />
-          <div className="fixed inset-0 bg-white/80 -z-10" aria-hidden="true" />
+          <div className="fixed inset-0 bg-slate-50 -z-10" aria-hidden="true" />
+          <div
+            className="fixed inset-0 pointer-events-none -z-10"
+            aria-hidden="true"
+            style={{
+              background: [
+                'radial-gradient(ellipse at 15% 40%, rgba(99,102,241,0.07) 0%, transparent 55%)',
+                'radial-gradient(ellipse at 85% 15%, rgba(6,182,212,0.05) 0%, transparent 50%)',
+                'radial-gradient(ellipse at 60% 85%, rgba(59,130,246,0.05) 0%, transparent 50%)',
+              ].join(', ')
+            }}
+          />
         </>
       )}
 
       {/* ── Navigation ── */}
       <nav
-        className={`fixed top-0 w-full ${t(isDarkMode, 'bg-black/70 border-white/10', 'bg-slate-100/90 border-slate-300/50')} backdrop-blur-md z-50 border-b`}
+        className={`fixed top-0 w-full ${t(isDarkMode, 'bg-black/70 border-white/10', 'bg-white/85 border-slate-200/80')} backdrop-blur-md z-50 border-b`}
         role="navigation"
         aria-label="Navegación principal"
       >
@@ -166,7 +176,7 @@ export default function Portfolio() {
           <div className="flex justify-between items-center">
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-indigo-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent focus:outline-none focus:ring-2 focus:ring-blue-400 rounded"
+              className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-indigo-500 via-blue-500 to-cyan-500 bg-clip-text text-transparent focus:outline-none focus:ring-2 focus:ring-indigo-400 rounded"
               aria-label="Volver al inicio"
             >
               &lt;Matías Fernández /&gt;
@@ -180,8 +190,8 @@ export default function Portfolio() {
               {SECTIONS.map(section => (
                 <button key={section} onClick={() => handleNavClick(section)} aria-label={`Ir a la sección ${NAV_LABELS[section]}`} aria-current={activeSection === section ? 'page' : undefined} role="menuitem" className={navBtnClass(section)}>
                   {NAV_LABELS[section]}
-                  {activeSection === section && isDarkMode && (
-                    <span className="absolute -bottom-0.5 left-0 right-0 h-0.5 bg-gradient-to-r from-indigo-400 to-cyan-400 rounded-full" />
+                  {activeSection === section && (
+                    <span className="absolute -bottom-0.5 left-0 right-0 h-0.5 bg-gradient-to-r from-indigo-500 to-cyan-500 rounded-full" />
                   )}
                 </button>
               ))}
@@ -196,7 +206,7 @@ export default function Portfolio() {
                 onClick={() => setIsMenuOpen(prev => !prev)}
                 aria-label={isMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
                 aria-expanded={isMenuOpen}
-                className={`p-2 rounded-lg transition-all focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 ${t(isDarkMode, 'hover:bg-white/10 text-blue-400 focus:ring-offset-black', 'hover:bg-slate-200 text-blue-600 focus:ring-offset-slate-100')}`}
+                className={`p-2 rounded-lg transition-all focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 ${t(isDarkMode, 'hover:bg-white/10 text-indigo-400 focus:ring-offset-black', 'hover:bg-indigo-50 text-indigo-600 focus:ring-offset-white')}`}
               >
                 {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
@@ -208,7 +218,7 @@ export default function Portfolio() {
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              className={`md:hidden mt-4 pb-4 border-t ${t(isDarkMode, 'border-white/10', 'border-slate-300/50')} pt-4 space-y-2`}
+              className={`md:hidden mt-4 pb-4 border-t ${t(isDarkMode, 'border-white/10', 'border-slate-200')} pt-4 space-y-2`}
             >
               {SECTIONS.map(section => (
                 <button key={section} onClick={() => handleNavClick(section)} aria-current={activeSection === section ? 'page' : undefined} className={mobileNavBtnClass(section)}>
@@ -232,19 +242,19 @@ export default function Portfolio() {
               transition={{ duration: 0.6 }}
               className="inline-block relative"
             >
-              {isDarkMode && (
-                <div
-                  className="absolute inset-0 rounded-full blur-xl"
-                  style={{
-                    background: 'radial-gradient(circle, rgba(99,102,241,0.5) 0%, rgba(6,182,212,0.3) 60%, transparent 80%)',
-                    animation: 'glow-pulse 3s ease-in-out infinite',
-                  }}
-                  aria-hidden="true"
-                />
-              )}
+              <div
+                className="absolute inset-0 rounded-full blur-xl"
+                style={{
+                  background: isDarkMode
+                    ? 'radial-gradient(circle, rgba(99,102,241,0.5) 0%, rgba(6,182,212,0.3) 60%, transparent 80%)'
+                    : 'radial-gradient(circle, rgba(99,102,241,0.25) 0%, rgba(6,182,212,0.15) 60%, transparent 80%)',
+                  animation: 'glow-pulse 3s ease-in-out infinite',
+                }}
+                aria-hidden="true"
+              />
               <button
                 onClick={() => setIsAvatarModalOpen(true)}
-                className="relative inline-block p-1 bg-gradient-to-r from-indigo-500 via-blue-500 to-cyan-500 rounded-full mb-2 sm:mb-4 cursor-pointer hover:scale-105 transition-transform focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
+                className="relative inline-block p-1 bg-gradient-to-r from-indigo-500 via-blue-500 to-cyan-500 rounded-full mb-2 sm:mb-4 cursor-pointer hover:scale-105 transition-transform focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2"
                 aria-label="Ver imagen de perfil en tamaño completo"
               >
                 <div className={`${t(isDarkMode, 'bg-black', 'bg-white')} rounded-full p-1`}>
@@ -260,13 +270,12 @@ export default function Portfolio() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-3xl sm:text-4xl md:text-5xl font-bold mb-2 sm:mb-4 px-4"
             >
-              {isDarkMode ? (
-                <span className="animate-gradient-text bg-gradient-to-r from-white via-blue-200 to-cyan-300 bg-clip-text text-transparent">
-                  Desarrollador de software Full Stack
-                </span>
-              ) : (
-                'Desarrollador de software Full Stack'
-              )}
+              <span className={`animate-gradient-text bg-gradient-to-r ${t(isDarkMode,
+                'from-white via-blue-200 to-cyan-300',
+                'from-slate-800 via-indigo-600 to-cyan-600'
+              )} bg-clip-text text-transparent`}>
+                Desarrollador de software Full Stack
+              </span>
             </motion.h2>
 
             {/* Description */}
@@ -274,7 +283,7 @@ export default function Portfolio() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.35 }}
-              className={`text-base sm:text-lg md:text-xl max-w-2xl mx-auto px-4 ${t(isDarkMode, 'text-slate-300', 'text-slate-600')}`}
+              className={`text-base sm:text-lg md:text-xl max-w-2xl mx-auto px-4 ${t(isDarkMode, 'text-slate-300', 'text-slate-500')}`}
             >
               Graduado en desarrollo desarrollo de software. Enfocado por crear soluciones a problemas reales. Aplicaciones web, de escritorio y automatización de procesos.
             </motion.p>
@@ -294,10 +303,10 @@ export default function Portfolio() {
                   target={href.startsWith('mailto:') ? undefined : '_blank'}
                   rel={href.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
                   aria-label={label}
-                  className={`p-2.5 sm:p-3 ${t(isDarkMode,
-                    'bg-white/5 hover:bg-white/10 border-white/10 hover:border-indigo-500/50',
-                    'bg-slate-200/60 hover:bg-slate-300/70 border-slate-300/50'
-                  )} rounded-lg transition-all border focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 ${t(isDarkMode, 'focus:ring-offset-black', 'focus:ring-offset-slate-100')} hover:scale-110 hover:shadow-[0_0_20px_rgba(99,102,241,0.3)]`}
+                  className={`p-2.5 sm:p-3 rounded-lg transition-all border focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 hover:scale-110 ${t(isDarkMode,
+                    'bg-white/5 hover:bg-white/10 border-white/10 hover:border-indigo-500/50 focus:ring-offset-black hover:shadow-[0_0_20px_rgba(99,102,241,0.3)]',
+                    'bg-white hover:bg-indigo-50 border-slate-200 hover:border-indigo-300 focus:ring-offset-white hover:shadow-[0_4px_16px_rgba(99,102,241,0.15)] text-slate-600 hover:text-indigo-600'
+                  )}`}
                 >
                   <Icon className="w-5 h-5 sm:w-6 sm:h-6" aria-hidden="true" />
                 </a>
@@ -315,9 +324,9 @@ export default function Portfolio() {
               <motion.div
                 animate={{ y: [0, 8, 0] }}
                 transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-                className={`mx-auto w-6 h-10 rounded-full border-2 flex items-start justify-center pt-1.5 ${t(isDarkMode, 'border-white/20', 'border-slate-400/40')}`}
+                className={`mx-auto w-6 h-10 rounded-full border-2 flex items-start justify-center pt-1.5 ${t(isDarkMode, 'border-white/20', 'border-slate-300')}`}
               >
-                <div className={`w-1 h-2.5 rounded-full ${t(isDarkMode, 'bg-white/40', 'bg-slate-400/60')}`} />
+                <div className={`w-1 h-2.5 rounded-full ${t(isDarkMode, 'bg-white/40', 'bg-slate-400')}`} />
               </motion.div>
             </motion.div>
 
@@ -325,9 +334,8 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/* ── Sections (landing page continuous scroll) ── */}
+      {/* ── Sections ── */}
       <main id="main-content" role="main">
-
         <section id="sobre-mi" className="relative py-16 sm:py-24 px-4 sm:px-6" aria-label="Sección Sobre Mí">
           <div className="max-w-6xl mx-auto">
             <SobreMi isDarkMode={isDarkMode} />
@@ -351,12 +359,11 @@ export default function Portfolio() {
             <Contacto isDarkMode={isDarkMode} />
           </div>
         </section>
-
       </main>
 
       {/* ── Footer ── */}
-      <footer className={`relative ${t(isDarkMode, 'bg-black/80 border-white/10', 'bg-slate-100/90 border-slate-300/50')} border-t py-6 sm:py-8`}>
-        <div className={`max-w-6xl mx-auto px-4 sm:px-6 text-center ${t(isDarkMode, 'text-slate-500', 'text-slate-600')}`}>
+      <footer className={`relative border-t py-6 sm:py-8 ${t(isDarkMode, 'bg-black/80 border-white/10', 'bg-white/80 border-slate-200')}`}>
+        <div className={`max-w-6xl mx-auto px-4 sm:px-6 text-center ${t(isDarkMode, 'text-slate-500', 'text-slate-400')}`}>
           <p className="text-sm sm:text-base">© 2025 - Desarrollado con React, Vite y Tailwind CSS</p>
         </div>
       </footer>

@@ -16,7 +16,7 @@ export default function Contacto({ isDarkMode }) {
 
   const inputClass = `w-full border rounded-lg px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent transition-colors ${t(isDarkMode,
     'bg-black/40 border-white/10 text-white placeholder:text-slate-500 focus:border-indigo-500/50',
-    'bg-white border-blue-300/50 text-slate-900 placeholder:text-slate-500'
+    'bg-slate-50 border-slate-200 text-slate-800 placeholder:text-slate-400 focus:border-indigo-300 focus:bg-white'
   )}`;
 
   return (
@@ -27,7 +27,7 @@ export default function Contacto({ isDarkMode }) {
         transition={{ duration: 0.5 }}
         className="flex items-center gap-3 mb-6 sm:mb-8"
       >
-        <Mail className={`w-7 h-7 sm:w-8 sm:h-8 ${isDarkMode ? 'text-indigo-400' : 'text-blue-400'}`} aria-hidden="true" />
+        <Mail className={`w-7 h-7 sm:w-8 sm:h-8 ${t(isDarkMode, 'text-indigo-400', 'text-indigo-500')}`} aria-hidden="true" />
         <h3 id="contacto-heading" className="text-2xl sm:text-3xl font-bold">Contacto</h3>
       </motion.div>
 
@@ -35,12 +35,12 @@ export default function Contacto({ isDarkMode }) {
         initial={{ opacity: 0, y: 30 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.6, delay: 0.1 }}
-        className={`group relative ${t(isDarkMode, 'border-white/10', 'bg-white/80 border-slate-300/50')} backdrop-blur-sm rounded-2xl p-6 sm:p-8 border`}
+        className={`relative backdrop-blur-sm rounded-2xl p-6 sm:p-8 border ${t(isDarkMode,
+          'bg-white/[0.04] border-white/10',
+          'bg-white border-slate-200 shadow-[0_4px_30px_rgba(99,102,241,0.08)]'
+        )}`}
       >
-        {isDarkMode && (
-          <div className="absolute inset-0 rounded-2xl bg-white/[0.03]" aria-hidden="true" />
-        )}
-        <form onSubmit={handleSubmit} className="relative space-y-5 sm:space-y-6" aria-label="Formulario de contacto">
+        <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6" aria-label="Formulario de contacto">
           <div>
             <label htmlFor="nombre" className={`block mb-2 font-medium text-sm sm:text-base ${t(isDarkMode, 'text-slate-300', 'text-slate-700')}`}>Nombre</label>
             <input
@@ -85,7 +85,10 @@ export default function Contacto({ isDarkMode }) {
             aria-label="Enviar mensaje de contacto"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.97 }}
-            className={`w-full bg-gradient-to-r from-indigo-600 to-cyan-600 hover:from-indigo-500 hover:to-cyan-500 text-white font-semibold py-2.5 sm:py-3 text-sm sm:text-base rounded-lg transition-all focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 ${t(isDarkMode, 'focus:ring-offset-black hover:shadow-[0_0_20px_rgba(99,102,241,0.4)]', 'focus:ring-offset-slate-100')}`}
+            className={`w-full bg-gradient-to-r from-indigo-600 to-cyan-600 hover:from-indigo-500 hover:to-cyan-500 text-white font-semibold py-2.5 sm:py-3 text-sm sm:text-base rounded-lg transition-all focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 ${t(isDarkMode,
+              'focus:ring-offset-black hover:shadow-[0_0_20px_rgba(99,102,241,0.4)]',
+              'focus:ring-offset-white hover:shadow-[0_4px_20px_rgba(99,102,241,0.3)]'
+            )}`}
           >
             Enviar Mensaje
           </motion.button>
