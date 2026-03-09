@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Mail } from 'lucide-react';
+import { motion, useInView } from 'motion/react';
 import { t } from '../../utils/theme';
 
 export default function Contacto({ isDarkMode }) {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: '-50px' });
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -11,21 +14,35 @@ export default function Contacto({ isDarkMode }) {
     setFormData({ name: '', email: '', message: '' });
   };
 
-  const inputClass = `w-full border rounded-lg px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-colors ${t(isDarkMode,
-    'bg-slate-900/50 border-blue-900/50 text-white placeholder:text-slate-400',
+  const inputClass = `w-full border rounded-lg px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent transition-colors ${t(isDarkMode,
+    'bg-black/40 border-white/10 text-white placeholder:text-slate-500 focus:border-indigo-500/50',
     'bg-white border-blue-300/50 text-slate-900 placeholder:text-slate-500'
   )}`;
 
   return (
-    <div className="max-w-2xl mx-auto animate-fadeIn" role="region" aria-labelledby="contacto-heading">
-      <div className="flex items-center gap-3 mb-6 sm:mb-8">
-        <Mail className="w-7 h-7 sm:w-8 sm:h-8 text-blue-400" aria-hidden="true" />
+    <div className="max-w-2xl mx-auto" role="region" aria-labelledby="contacto-heading" ref={ref}>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.5 }}
+        className="flex items-center gap-3 mb-6 sm:mb-8"
+      >
+        <Mail className={`w-7 h-7 sm:w-8 sm:h-8 ${isDarkMode ? 'text-indigo-400' : 'text-blue-400'}`} aria-hidden="true" />
         <h3 id="contacto-heading" className="text-2xl sm:text-3xl font-bold">Contacto</h3>
-      </div>
-      <div className={`${t(isDarkMode, 'bg-slate-800/40 border-blue-900/30', 'bg-white/80 border-slate-300/50')} backdrop-blur-sm rounded-2xl p-6 sm:p-8 border`}>
-        <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6" aria-label="Formulario de contacto">
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.6, delay: 0.1 }}
+        className={`group relative ${t(isDarkMode, 'border-white/10', 'bg-white/80 border-slate-300/50')} backdrop-blur-sm rounded-2xl p-6 sm:p-8 border`}
+      >
+        {isDarkMode && (
+          <div className="absolute inset-0 rounded-2xl bg-white/[0.03]" aria-hidden="true" />
+        )}
+        <form onSubmit={handleSubmit} className="relative space-y-5 sm:space-y-6" aria-label="Formulario de contacto">
           <div>
-            <label htmlFor="nombre" className={`block mb-2 font-medium text-sm sm:text-base ${t(isDarkMode, 'text-slate-200', 'text-slate-700')}`}>Nombre</label>
+            <label htmlFor="nombre" className={`block mb-2 font-medium text-sm sm:text-base ${t(isDarkMode, 'text-slate-300', 'text-slate-700')}`}>Nombre</label>
             <input
               id="nombre"
               type="text"
@@ -38,7 +55,7 @@ export default function Contacto({ isDarkMode }) {
             />
           </div>
           <div>
-            <label htmlFor="email" className={`block mb-2 font-medium text-sm sm:text-base ${t(isDarkMode, 'text-slate-200', 'text-slate-700')}`}>Email</label>
+            <label htmlFor="email" className={`block mb-2 font-medium text-sm sm:text-base ${t(isDarkMode, 'text-slate-300', 'text-slate-700')}`}>Email</label>
             <input
               id="email"
               type="email"
@@ -51,7 +68,7 @@ export default function Contacto({ isDarkMode }) {
             />
           </div>
           <div>
-            <label htmlFor="mensaje" className={`block mb-2 font-medium text-sm sm:text-base ${t(isDarkMode, 'text-slate-200', 'text-slate-700')}`}>Mensaje</label>
+            <label htmlFor="mensaje" className={`block mb-2 font-medium text-sm sm:text-base ${t(isDarkMode, 'text-slate-300', 'text-slate-700')}`}>Mensaje</label>
             <textarea
               id="mensaje"
               required
@@ -63,15 +80,17 @@ export default function Contacto({ isDarkMode }) {
               aria-required="true"
             />
           </div>
-          <button
+          <motion.button
             type="submit"
             aria-label="Enviar mensaje de contacto"
-            className={`w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-semibold py-2.5 sm:py-3 text-sm sm:text-base rounded-lg transition-all transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 ${t(isDarkMode, 'focus:ring-offset-slate-800', 'focus:ring-offset-slate-100')}`}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.97 }}
+            className={`w-full bg-gradient-to-r from-indigo-600 to-cyan-600 hover:from-indigo-500 hover:to-cyan-500 text-white font-semibold py-2.5 sm:py-3 text-sm sm:text-base rounded-lg transition-all focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 ${t(isDarkMode, 'focus:ring-offset-black hover:shadow-[0_0_20px_rgba(99,102,241,0.4)]', 'focus:ring-offset-slate-100')}`}
           >
             Enviar Mensaje
-          </button>
+          </motion.button>
         </form>
-      </div>
+      </motion.div>
     </div>
   );
 }

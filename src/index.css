@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -9,10 +13,29 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 * {
   box-sizing: border-box;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #4f46e5, #06b6d4);
+  border-radius: 3px;
+}
+
+/* Text selection */
+::selection {
+  background: rgba(79, 70, 229, 0.35);
+  color: white;
 }
 
 /* Mejoras de accesibilidad - Navegación por teclado */
@@ -44,3 +67,33 @@ a:focus-visible {
   text-decoration: none;
   border-radius: 4px;
 }
+
+/* Particle float animation */
+@keyframes float-particle {
+  0%, 100% { transform: translateY(0px); opacity: 0.15; }
+  50% { transform: translateY(-20px); opacity: 0.5; }
+}
+
+/* Gradient text animation */
+@keyframes gradient-flow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-gradient-text {
+  background-size: 200% auto;
+  animation: gradient-flow 5s linear infinite;
+}
+
+/* Animated glow pulse for avatar */
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.05); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fadeIn { animation: fadeIn 0.5s ease-out; }
