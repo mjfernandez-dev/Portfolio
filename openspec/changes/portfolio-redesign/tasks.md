@@ -49,14 +49,14 @@ Chain strategy: stacked-to-main
 
 ## Phase 3: Numbered Projects & WhatsApp CTA
 
-- [ ] 3.1 Add `oneLiner` field to each project in `src/data/projects.js` — all values `[DRAFT]` until user confirmation; preserve existing `title`, `status`, `tech`, link fields unchanged. Acceptance: REQ-projects-2, REQ-projects-4
-- [ ] 3.2 Rewrite `src/components/sections/Proyectos.jsx` — export default `function Proyectos({ isDarkMode })`; vertical numbered list (01/02/03); each item: large number + title (h3) + one-liner (fallback to `description` if `oneLiner` missing) + status badge; section id `proyectos`, `aria-labelledby="proyectos-heading"`; link rules: `github === '#'` → omit anchor; all real links `target="_blank" rel="noopener noreferrer"`; no tech chips. Acceptance: REQ-projects-1, REQ-projects-3, REQ-projects-4
-- [ ] 3.3 Create `src/components/sections/WhatsAppCta.jsx` — export default `function WhatsAppCta({ isDarkMode })`; section id `contacto`, `aria-labelledby="contacto-heading"`; heading h2 "Escribime" `[DRAFT]`; support text "Te contesto yo. No hay formulario ni vendedor." `[DRAFT]`; single `<a>` to `https://wa.me/5493385681007` (NO `?text=`); `target="_blank" rel="noopener noreferrer"`; `aria-label="Escribirme por WhatsApp (se abre en nueva ventana)"`; `min-height: 44px`. Acceptance: REQ-wa-1, REQ-wa-2
-- [ ] 3.4 Modify `src/Portfolio.jsx` — replace `Contacto` import with `WhatsAppCta`; remove `ProjectCard` import; render `<WhatsAppCta />` in contacto section slot
-- [ ] 3.5 Delete `src/components/sections/Contacto.jsx`
-- [ ] 3.6 Delete `src/components/ProjectCard.jsx`
-- [ ] 3.7 **COPY GATE** — Pause before proceeding: display `[DRAFT]` copy for one-liners, "Escribime" heading, support text, and footer to user for confirmation. No apply of copy finalization until user approves.
-- [ ] 3.8 Verify: `npm run build` zero errors + manual: list renders 3 numbered items, no `href="#"` links in DOM, WA link opens `wa.me/5493385681007` exact, no form elements in contacto section
+- [x] 3.1 Add `oneLiner` field to each project in `src/data/projects.js` — all values `[DRAFT]` until user confirmation; preserve existing `title`, `status`, `tech`, link fields unchanged. Acceptance: REQ-projects-2, REQ-projects-4
+- [x] 3.2 Rewrite `src/components/sections/Proyectos.jsx` — export default `function Proyectos({ isDarkMode })`; vertical numbered list (01/02/03); each item: large number + title (h3) + one-liner (fallback to `description` if `oneLiner` missing) + status badge; section id `proyectos`, `aria-labelledby="proyectos-heading"`; link rules: `github === '#'` → omit anchor; all real links `target="_blank" rel="noopener noreferrer"`; no tech chips. Acceptance: REQ-projects-1, REQ-projects-3, REQ-projects-4
+- [x] 3.3 Create `src/components/sections/WhatsAppCta.jsx` — export default `function WhatsAppCta({ isDarkMode })`; section id `contacto`, `aria-labelledby="contacto-heading"`; heading h2 "Escribime" `[DRAFT]`; support text "Te contesto yo. No hay formulario ni vendedor." `[DRAFT]`; single `<a>` to `https://wa.me/5493385681007` (NO `?text=`); `target="_blank" rel="noopener noreferrer"`; `aria-label="Escribirme por WhatsApp (se abre en nueva ventana)"`; `min-height: 44px`. Acceptance: REQ-wa-1, REQ-wa-2
+- [x] 3.4 Modify `src/Portfolio.jsx` — replace `Contacto` import with `WhatsAppCta`; remove `ProjectCard` import; render `<WhatsAppCta />` in contacto section slot
+- [x] 3.5 Delete `src/components/sections/Contacto.jsx`
+- [x] 3.6 Delete `src/components/ProjectCard.jsx`
+- [x] 3.7 **COPY GATE** — Pause before proceeding: display `[DRAFT]` copy for one-liners, "Escribime" heading, support text, and footer to user for confirmation. No apply of copy finalization until user approves.
+- [x] 3.8 Verify: `npm run build` zero errors + manual: list renders 3 numbered items, no `href="#"` links in DOM, WA link opens `wa.me/5493385681007` exact, no form elements in contacto section
 
 ## Phase 4: Cleanup, SEO & MotionConfig
 
