@@ -78,11 +78,17 @@ a:focus-visible {
   border-radius: 4px;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+/* Drop cap (editorial) on the first paragraph of Cómo trabajo */
+.drop-cap::first-letter {
+  font-family: Fraunces, Georgia, serif;
+  font-weight: 500;
+  font-size: 3.4em;
+  float: left;
+  line-height: 0.85;
+  padding-right: 0.12em;
+  padding-top: 0.04em;
+  color: #2563eb;
 }
-.animate-fadeIn { animation: fadeIn 0.5s ease-out; }
 
 /* Reduced motion: disable animations per user preference */
 @media (prefers-reduced-motion: reduce) {

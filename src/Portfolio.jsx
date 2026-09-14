@@ -1,32 +1,25 @@
-import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
-import { Github, Linkedin, Mail, Sun, Moon, Menu, X, ChevronUp } from 'lucide-react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { Sun, Moon, Menu, X, ChevronUp } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useTheme } from './hooks/useTheme';
 import { t } from './utils/theme';
-import AvatarModal from './components/AvatarModal';
-import SobreMi from './components/sections/SobreMi';
+import Hero from './components/sections/Hero';
+import ComoTrabajo from './components/sections/ComoTrabajo';
 import Habilidades from './components/sections/Habilidades';
 import Proyectos from './components/sections/Proyectos';
 import Contacto from './components/sections/Contacto';
 
-const SECTIONS = ['sobre-mi', 'habilidades', 'proyectos', 'contacto'];
+const SECTIONS = ['como-trabajo', 'proyectos', 'contacto'];
 const NAV_LABELS = {
-  'sobre-mi': 'Sobre Mí',
-  'habilidades': 'Habilidades',
-  'proyectos': 'Proyectos',
-  'contacto': 'Contacto'
+  'como-trabajo': 'Sistemas',
+  'proyectos': 'Sistemas',
+  'contacto': 'Escribime'
 };
-const SOCIAL_LINKS = [
-  { href: 'https://github.com/mjfernandez-dev', label: 'Visitar mi perfil de GitHub (se abre en nueva ventana)', Icon: Github },
-  { href: 'https://www.linkedin.com/in/matias-fernandez-/', label: 'Visitar mi perfil de LinkedIn (se abre en nueva ventana)', Icon: Linkedin },
-  { href: 'mailto:mjfernandez.dev@gmail.com', label: 'Enviar un correo electrónico a mjfernandez.dev@gmail.com', Icon: Mail }
-];
 
 export default function Portfolio() {
   const { isDarkMode, toggleTheme } = useTheme();
-  const [activeSection, setActiveSection] = useState('sobre-mi');
+  const [activeSection, setActiveSection] = useState('como-trabajo');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isAvatarModalOpen, setIsAvatarModalOpen] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   const activeSectionRef = useRef(activeSection);
@@ -75,23 +68,14 @@ export default function Portfolio() {
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = isMenuOpen || isAvatarModalOpen ? 'hidden' : '';
-  }, [isMenuOpen, isAvatarModalOpen]);
+    document.body.style.overflow = isMenuOpen ? 'hidden' : '';
+  }, [isMenuOpen]);
 
   useEffect(() => {
     const handleResize = () => { if (window.innerWidth >= 768) setIsMenuOpen(false); };
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-
-  const particles = useMemo(() =>
-    Array.from({ length: 20 }, (_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      duration: 3 + Math.random() * 3,
-      delay: Math.random() * 4,
-    })), []);
 
   const navBtnClass = (section) =>
     `relative transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 ${t(isDarkMode, 'focus:ring-offset-black', 'focus:ring-offset-white')} rounded px-2 py-1 ${
@@ -132,22 +116,6 @@ export default function Portfolio() {
               ].join(', ')
             }}
           />
-          {particles.map(p => (
-            <div
-              key={p.id}
-              aria-hidden="true"
-              className="fixed pointer-events-none rounded-full -z-10"
-              style={{
-                left: `${p.x}%`,
-                top: `${p.y}%`,
-                width: '2px',
-                height: '2px',
-                background: 'rgba(255,255,255,0.25)',
-                animation: `float-particle ${p.duration}s ease-in-out infinite`,
-                animationDelay: `${p.delay}s`,
-              }}
-            />
-          ))}
         </>
       ) : (
         <>
@@ -231,116 +199,11 @@ export default function Portfolio() {
       </nav>
 
       {/* ── Hero section ── */}
-      <section className="relative pt-24 sm:pt-32 pb-16 sm:pb-24 px-4 sm:px-6">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center space-y-4 sm:space-y-6">
-
-            {/* Avatar with glow ring */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6 }}
-              className="inline-block relative"
-            >
-              <div
-                className="absolute inset-0 rounded-full blur-xl"
-                style={{
-                  background: isDarkMode
-                    ? 'radial-gradient(circle, rgba(99,102,241,0.5) 0%, rgba(6,182,212,0.3) 60%, transparent 80%)'
-                    : 'radial-gradient(circle, rgba(99,102,241,0.25) 0%, rgba(6,182,212,0.15) 60%, transparent 80%)',
-                  animation: 'glow-pulse 3s ease-in-out infinite',
-                }}
-                aria-hidden="true"
-              />
-              <button
-                onClick={() => setIsAvatarModalOpen(true)}
-                className="relative inline-block p-1 bg-gradient-to-r from-indigo-500 via-blue-500 to-cyan-500 rounded-full mb-2 sm:mb-4 cursor-pointer hover:scale-105 transition-transform focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2"
-                aria-label="Ver imagen de perfil en tamaño completo"
-              >
-                <div className={`${t(isDarkMode, 'bg-black', 'bg-white')} rounded-full p-1`}>
-                  <img src="/images/avatar.png" alt="Matías Fernández - Desarrollador Full Stack" className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover" />
-                </div>
-              </button>
-            </motion.div>
-
-            {/* Title */}
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-3xl sm:text-4xl md:text-5xl font-bold mb-2 sm:mb-4 px-4"
-            >
-              <span className={`animate-gradient-text bg-gradient-to-r ${t(isDarkMode,
-                'from-white via-blue-200 to-cyan-300',
-                'from-slate-800 via-indigo-600 to-cyan-600'
-              )} bg-clip-text text-transparent`}>
-                Desarrollador de software Full Stack
-              </span>
-            </motion.h2>
-
-            {/* Description */}
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.35 }}
-              className={`text-base sm:text-lg md:text-xl max-w-2xl mx-auto px-4 ${t(isDarkMode, 'text-slate-300', 'text-slate-500')}`}
-            >
-              Graduado en desarrollo desarrollo de software. Enfocado por crear soluciones a problemas reales. Aplicaciones web, de escritorio y automatización de procesos.
-            </motion.p>
-
-            {/* Social links */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-              className="flex gap-3 sm:gap-4 justify-center mt-6 sm:mt-8"
-              role="list"
-            >
-              {SOCIAL_LINKS.map(({ href, label, Icon }) => (
-                <a
-                  key={href}
-                  href={href}
-                  target={href.startsWith('mailto:') ? undefined : '_blank'}
-                  rel={href.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
-                  aria-label={label}
-                  className={`p-2.5 sm:p-3 rounded-lg transition-all border focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 hover:scale-110 ${t(isDarkMode,
-                    'bg-white/5 hover:bg-white/10 border-white/10 hover:border-indigo-500/50 focus:ring-offset-black hover:shadow-[0_0_20px_rgba(99,102,241,0.3)]',
-                    'bg-white hover:bg-indigo-50 border-slate-200 hover:border-indigo-300 focus:ring-offset-white hover:shadow-[0_4px_16px_rgba(99,102,241,0.15)] text-slate-600 hover:text-indigo-600'
-                  )}`}
-                >
-                  <Icon className="w-5 h-5 sm:w-6 sm:h-6" aria-hidden="true" />
-                </a>
-              ))}
-            </motion.div>
-
-            {/* Scroll hint */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 1 }}
-              className="pt-8 sm:pt-12"
-              aria-hidden="true"
-            >
-              <motion.div
-                animate={{ y: [0, 8, 0] }}
-                transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-                className={`mx-auto w-6 h-10 rounded-full border-2 flex items-start justify-center pt-1.5 ${t(isDarkMode, 'border-white/20', 'border-slate-300')}`}
-              >
-                <div className={`w-1 h-2.5 rounded-full ${t(isDarkMode, 'bg-white/40', 'bg-slate-400')}`} />
-              </motion.div>
-            </motion.div>
-
-          </div>
-        </div>
-      </section>
+      <Hero isDarkMode={isDarkMode} />
 
       {/* ── Sections ── */}
       <main id="main-content" role="main">
-        <section id="sobre-mi" className="relative py-16 sm:py-24 px-4 sm:px-6" aria-label="Sección Sobre Mí">
-          <div className="max-w-6xl mx-auto">
-            <SobreMi isDarkMode={isDarkMode} />
-          </div>
-        </section>
+        <ComoTrabajo isDarkMode={isDarkMode} />
 
         <section id="habilidades" className="relative py-16 sm:py-24 px-4 sm:px-6" aria-label="Sección Habilidades">
           <div className="max-w-6xl mx-auto">
@@ -379,8 +242,6 @@ export default function Portfolio() {
       >
         <ChevronUp className="w-5 h-5" aria-hidden="true" />
       </motion.button>
-
-      {isAvatarModalOpen && <AvatarModal onClose={() => setIsAvatarModalOpen(false)} />}
     </div>
   );
 }
