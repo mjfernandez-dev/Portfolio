@@ -42,6 +42,12 @@ export default function ComoTrabajo({ isDarkMode }) {
               No hace falta tener la idea clara: con que tengas un problema concreto alcanza para
               arrancar.
             </p>
+            <p>
+              La IA y el avance tecnológico hicieron que crear software sea más simple.
+              Por eso quiero acercarte esa posibilidad: si ves digitalización por todos
+              lados pero no sabés cómo ni por dónde empezar, consultame. Te sacás la duda, gratis,
+              y si es lo que realmente necesitás, te ayudo a dar el primer paso.
+            </p>
           </div>
         </motion.div>
       </div>
