@@ -36,6 +36,12 @@ export default function ComoTrabajo({ isDarkMode }) {
               solución. El objetivo siempre es el mismo: que el software te facilite la tarea, no
               que te agregue complejidad.
             </p>
+            <p>
+              Muchas veces la gente no se imagina qué puede resolver el software. Casi cualquier
+              tarea repetitiva se puede resolver, o al menos mejorar, con una solución a medida.
+              No hace falta tener la idea clara: con que tengas un problema concreto alcanza para
+              arrancar.
+            </p>
           </div>
         </motion.div>
       </div>

@@ -10,7 +10,7 @@ import WhatsAppCta from './components/sections/WhatsAppCta';
 
 const SECTIONS = ['como-trabajo', 'proyectos', 'contacto'];
 const NAV_LABELS = {
-  'como-trabajo': 'Sistemas',
+  'como-trabajo': 'Cómo trabajo',
   'proyectos': 'Sistemas',
   'contacto': 'Escribime'
 };

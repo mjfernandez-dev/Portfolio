@@ -24,6 +24,6 @@ export const projects = [
     tech: ['FastAPI', 'React', 'TypeScript', 'SQLite', 'PWA'],
     status: 'Completado',
     github: 'https://github.com/mjfernandez-dev/expense-tracker',
-    demo: 'https://finanzaap.duckdns.org/login'
+    demo: 'https://finanzaapp-1063341991969.us-east1.run.app/'
   },
 ];

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Github, Linkedin, Mail, MessageCircle } from 'lucide-react';
+import { Github, Linkedin, Mail } from 'lucide-react';
+import WhatsAppIcon from '../WhatsAppIcon';
 import { motion } from 'motion/react';
 import { t } from '../../utils/theme';
 
@@ -48,7 +49,7 @@ export default function Hero({ isDarkMode }) {
             transition={{ duration: 0.4, ease: 'easeOut', delay: 0.2 }}
             className={`text-base sm:text-lg max-w-2xl mx-auto px-4 ${t(isDarkMode, 'text-slate-300', 'text-slate-500')}`}
           >
-            haciendo software para personas y empresas que quieren optimizar su tiempo de trabajo
+            Haciendo software para personas y empresas que quieren optimizar su tiempo de trabajo.
           </motion.p>
 
           {/* Avatar photo */}
@@ -88,7 +89,7 @@ export default function Hero({ isDarkMode }) {
               aria-label="Escribirme por WhatsApp (se abre en nueva ventana)"
               className={iconClass(isDarkMode)}
             >
-              <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6" aria-hidden="true" />
+              <WhatsAppIcon className="w-5 h-5 sm:w-6 sm:h-6" ariaHidden />
             </a>
           </motion.div>
 

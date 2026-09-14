@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { MessageCircle } from 'lucide-react';
+import WhatsAppIcon from '../WhatsAppIcon';
 import { motion, useInView } from 'motion/react';
 import { t } from '../../utils/theme';
 
@@ -33,7 +33,7 @@ export default function WhatsAppCta({ isDarkMode }) {
             aria-label="Escribirme por WhatsApp (se abre en nueva ventana)"
             className={`inline-flex items-center justify-center gap-2 min-h-[44px] px-6 sm:px-8 rounded-full bg-accent text-white font-medium text-sm sm:text-base transition-colors hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 ${t(isDarkMode, 'focus:ring-offset-black', 'focus:ring-offset-white')}`}
           >
-            <MessageCircle className="w-5 h-5" aria-hidden="true" />
+            <WhatsAppIcon className="w-5 h-5" ariaHidden />
             Escribime por WhatsApp
           </a>
         </motion.div>
