@@ -1,0 +1,58 @@
+schema: spec-driven
+
+context: |
+  Tech stack: React 18 + Vite 4 + Tailwind CSS 3.3 (plain JS/JSX, no TypeScript)
+  Architecture: Single-page continuous-scroll landing; components under src/components (sections/), hooks, utils, static data; Spanish UI copy
+  Testing: No test runner or test files installed; stylelint (CSS only); no type checker; no formatter
+  Style: Conventional commits (feat/fix/refactor); feature-sliced section components; dark/light theme via useTheme hook
+
+strict_tdd: false
+
+testing:
+  strict_tdd: false
+  detected: 2026-09-14
+  workspace_test_command: ""   # no runner exists; strict TDD requires adding one (e.g. Vitest) before enabling
+  projects:
+    - path: .
+      stack: react-vite-tailwind
+      test_command: ""         # missing — no runner installed
+      framework: none
+      layers:
+        unit: false
+        integration: false
+        e2e: false
+      coverage_command: ""
+      quality:
+        linter: stylelint
+        linter_command: "npx stylelint \"src/**/*.css\""
+        type_checker: none
+        formatter: none
+
+rules:
+  proposal:
+    - State problem, scope, and approach in one page or less
+    - Include rollback plan for risky changes
+  specs:
+    - Use Given/When/Then for scenarios
+    - Use RFC 2119 keywords (MUST, SHALL, SHOULD, MAY)
+    - UI copy is Spanish (site convention); technical artifacts default to English
+  design:
+    - Follow existing component/section pattern under src/components
+    - Keep plain JS/JSX (no TypeScript migration without explicit request)
+    - Include sequence diagrams for complex flows
+    - Document architecture decisions with rationale
+  tasks:
+    - Group by phase, use hierarchical numbering
+    - Keep tasks completable in one session
+  apply:
+    guidelines:
+      - Follow existing code patterns
+      - Preserve Spanish UI copy and existing theme utilities
+    tdd: false           # no runner installed; enabling requires a workspace-level test command
+    test_command: ""
+  verify:
+    test_command: ""
+    build_command: "npm run build"
+    coverage_threshold: 0
+  archive:
+    - Warn before merging destructive deltas
