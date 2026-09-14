@@ -5,7 +5,6 @@ import { useTheme } from './hooks/useTheme';
 import { t } from './utils/theme';
 import Hero from './components/sections/Hero';
 import ComoTrabajo from './components/sections/ComoTrabajo';
-import Habilidades from './components/sections/Habilidades';
 import Proyectos from './components/sections/Proyectos';
 import WhatsAppCta from './components/sections/WhatsAppCta';
 
@@ -78,61 +77,31 @@ export default function Portfolio() {
   }, []);
 
   const navBtnClass = (section) =>
-    `relative transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 ${t(isDarkMode, 'focus:ring-offset-black', 'focus:ring-offset-white')} rounded px-2 py-1 ${
+    `relative transition-colors focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 ${t(isDarkMode, 'focus:ring-offset-black', 'focus:ring-offset-white')} rounded px-2 py-1 ${
       activeSection === section
         ? 'text-indigo-500'
         : t(isDarkMode, 'text-white/80 hover:text-white', 'text-slate-600 hover:text-indigo-600')
     }`;
 
   const mobileNavBtnClass = (section) =>
-    `w-full text-left px-4 py-3 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 ${t(isDarkMode, 'focus:ring-offset-black', 'focus:ring-offset-white')} ${
+    `w-full text-left px-4 py-3 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 ${t(isDarkMode, 'focus:ring-offset-black', 'focus:ring-offset-white')} ${
       activeSection === section
         ? t(isDarkMode, 'bg-indigo-500/20 text-indigo-400', 'bg-indigo-50 text-indigo-600')
         : t(isDarkMode, 'hover:bg-white/5 text-white/80', 'hover:bg-slate-100 text-slate-600')
     }`;
 
   const themeBtnClass = (mobile = false) =>
-    `${mobile ? 'p-2' : 'p-2.5'} rounded-lg transition-all focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 ${t(isDarkMode,
+    `${mobile ? 'p-2' : 'p-2.5'} rounded-lg transition-all focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 ${t(isDarkMode,
       'hover:bg-white/10 text-yellow-400 bg-yellow-400/10 border border-yellow-400/20 focus:ring-offset-black',
       'hover:bg-indigo-50 text-slate-600 bg-white border border-slate-200 focus:ring-offset-white'
     )}`;
 
   return (
-    <div className={`min-h-screen ${t(isDarkMode, 'text-white', 'text-slate-800')}`}>
+    <div className={`min-h-screen ${t(isDarkMode, 'text-paper', 'text-ink')}`}>
       <a href="#main-content" className="skip-to-main">Saltar al contenido principal</a>
 
-      {/* ── Fixed background ── */}
-      {isDarkMode ? (
-        <>
-          <div className="fixed inset-0 bg-black -z-10" aria-hidden="true" />
-          <div
-            className="fixed inset-0 pointer-events-none -z-10"
-            aria-hidden="true"
-            style={{
-              background: [
-                'radial-gradient(ellipse at 15% 50%, rgba(99,102,241,0.14) 0%, transparent 55%)',
-                'radial-gradient(ellipse at 85% 15%, rgba(6,182,212,0.10) 0%, transparent 50%)',
-                'radial-gradient(ellipse at 50% 90%, rgba(59,130,246,0.08) 0%, transparent 50%)',
-              ].join(', ')
-            }}
-          />
-        </>
-      ) : (
-        <>
-          <div className="fixed inset-0 bg-slate-50 -z-10" aria-hidden="true" />
-          <div
-            className="fixed inset-0 pointer-events-none -z-10"
-            aria-hidden="true"
-            style={{
-              background: [
-                'radial-gradient(ellipse at 15% 40%, rgba(99,102,241,0.07) 0%, transparent 55%)',
-                'radial-gradient(ellipse at 85% 15%, rgba(6,182,212,0.05) 0%, transparent 50%)',
-                'radial-gradient(ellipse at 60% 85%, rgba(59,130,246,0.05) 0%, transparent 50%)',
-              ].join(', ')
-            }}
-          />
-        </>
-      )}
+      {/* ── Fixed background (flat paper/ink) ── */}
+      <div className={`fixed inset-0 -z-10 ${t(isDarkMode, 'bg-ink', 'bg-paper')}`} aria-hidden="true" />
 
       {/* ── Navigation ── */}
       <nav
@@ -144,7 +113,7 @@ export default function Portfolio() {
           <div className="flex justify-between items-center">
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-indigo-500 via-blue-500 to-cyan-500 bg-clip-text text-transparent focus:outline-none focus:ring-2 focus:ring-indigo-400 rounded"
+              className="text-xl sm:text-2xl font-bold focus:outline-none focus:ring-2 focus:ring-accent rounded"
               aria-label="Volver al inicio"
             >
               &lt;Matías Fernández /&gt;
@@ -159,7 +128,7 @@ export default function Portfolio() {
                 <button key={section} onClick={() => handleNavClick(section)} aria-label={`Ir a la sección ${NAV_LABELS[section]}`} aria-current={activeSection === section ? 'page' : undefined} role="menuitem" className={navBtnClass(section)}>
                   {NAV_LABELS[section]}
                   {activeSection === section && (
-                    <span className="absolute -bottom-0.5 left-0 right-0 h-0.5 bg-gradient-to-r from-indigo-500 to-cyan-500 rounded-full" />
+                    <span className="absolute -bottom-0.5 left-0 right-0 h-0.5 bg-accent rounded-full" />
                   )}
                 </button>
               ))}
@@ -174,7 +143,7 @@ export default function Portfolio() {
                 onClick={() => setIsMenuOpen(prev => !prev)}
                 aria-label={isMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
                 aria-expanded={isMenuOpen}
-                className={`p-2 rounded-lg transition-all focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 ${t(isDarkMode, 'hover:bg-white/10 text-indigo-400 focus:ring-offset-black', 'hover:bg-indigo-50 text-indigo-600 focus:ring-offset-white')}`}
+                className={`p-2 rounded-lg transition-all focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 ${t(isDarkMode, 'hover:bg-white/10 text-indigo-400 focus:ring-offset-black', 'hover:bg-indigo-50 text-indigo-600 focus:ring-offset-white')}`}
               >
                 {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
@@ -205,12 +174,6 @@ export default function Portfolio() {
       <main id="main-content" role="main">
         <ComoTrabajo isDarkMode={isDarkMode} />
 
-        <section id="habilidades" className="relative py-16 sm:py-24 px-4 sm:px-6" aria-label="Sección Habilidades">
-          <div className="max-w-6xl mx-auto">
-            <Habilidades isDarkMode={isDarkMode} />
-          </div>
-        </section>
-
         <Proyectos isDarkMode={isDarkMode} />
 
         <WhatsAppCta isDarkMode={isDarkMode} />
@@ -219,7 +182,7 @@ export default function Portfolio() {
       {/* ── Footer ── */}
       <footer className={`relative border-t py-6 sm:py-8 ${t(isDarkMode, 'bg-black/80 border-white/10', 'bg-white/80 border-slate-200')}`}>
         <div className={`max-w-6xl mx-auto px-4 sm:px-6 text-center ${t(isDarkMode, 'text-slate-500', 'text-slate-400')}`}>
-          <p className="text-sm sm:text-base">© 2025 - Desarrollado con React, Vite y Tailwind CSS</p>
+          <p className="text-sm sm:text-base">haciendo software desde 2024</p>
         </div>
       </footer>
 
@@ -230,7 +193,7 @@ export default function Portfolio() {
         style={{ pointerEvents: showScrollTop ? 'auto' : 'none' }}
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         aria-label="Volver al inicio de la página"
-        className="fixed bottom-6 right-6 z-50 p-3 rounded-full bg-gradient-to-br from-indigo-600 to-cyan-600 text-white shadow-lg hover:shadow-[0_0_24px_rgba(99,102,241,0.5)] hover:scale-110 transition-all focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2"
+        className="fixed bottom-6 right-6 z-50 p-3 rounded-full bg-accent text-white shadow-lg hover:scale-105 transition-all focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
       >
         <ChevronUp className="w-5 h-5" aria-hidden="true" />
       </motion.button>

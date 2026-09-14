@@ -60,11 +60,11 @@ Chain strategy: stacked-to-main
 
 ## Phase 4: Cleanup, SEO & MotionConfig
 
-- [ ] 4.1 Delete `src/components/sections/Habilidades.jsx`
-- [ ] 4.2 Delete `src/data/skills.js`
-- [ ] 4.3 Delete `public/images/hero-bg.webp`
-- [ ] 4.4 Remove `zod` and `@emailjs/browser` from `package.json` dependencies; run `npm install` to update lockfile
-- [ ] 4.5 Wrap app in `<MotionConfig reducedMotion="user">` in `src/main.jsx` (import from `framer-motion`)
-- [ ] 4.6 Update `index.html` — replace `<title>` and `<meta name="description">` with new editorial positioning copy (user-approved)
-- [ ] 4.7 Update footer copy in `src/Portfolio.jsx` to "haciendo software desde 2024" `[DRAFT]`
-- [ ] 4.8 Verify: `npm run build` zero errors + grep dist for removed symbols (ProjectCard, AvatarModal, Habilidades, skills, hero-bg, zod, emailjs) all absent + manual: no infinite animations, `prefers-reduced-motion` disables all motion, meta tags correct in `<head>`
+- [x] 4.1 Delete `src/components/sections/Habilidades.jsx`
+- [x] 4.2 Delete `src/data/skills.js`
+- [x] 4.3 Delete `public/images/hero-bg.webp`
+- [x] 4.4 Remove `zod` and `@emailjs/browser` from `package.json` dependencies; run `npm install` to update lockfile
+- [x] 4.5 Wrap app in `<MotionConfig reducedMotion="user">` in `src/main.jsx` (import from `framer-motion`)
+- [x] 4.6 Update `index.html` — replace `<title>` and `<meta name="description">` with new editorial positioning copy (user-approved)
+- [x] 4.7 Update footer copy in `src/Portfolio.jsx` to "haciendo software desde 2024" `[DRAFT]`
+- [x] 4.8 Verify: `npm run build` zero errors + grep dist for removed symbols (ProjectCard, AvatarModal, Habilidades, skills, hero-bg, zod, emailjs) all absent + manual: no infinite animations, `prefers-reduced-motion` disables all motion, meta tags correct in `<head>`
