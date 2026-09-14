@@ -49,7 +49,7 @@ export default function Hero({ isDarkMode }) {
             transition={{ duration: 0.4, ease: 'easeOut', delay: 0.2 }}
             className={`text-base sm:text-lg max-w-2xl mx-auto px-4 ${t(isDarkMode, 'text-slate-300', 'text-slate-500')}`}
           >
-            Haciendo software, IA y automatizaciones para personas y empresas que quieren optimizar su tiempo de trabajo.
+            Desarrollos de software, IA y automatizaciones para personas y empresas que desean optimizar sus tiempos de trabajo.
           </motion.p>
 
           {/* Avatar photo */}
