@@ -7,7 +7,7 @@ import Hero from './components/sections/Hero';
 import ComoTrabajo from './components/sections/ComoTrabajo';
 import Habilidades from './components/sections/Habilidades';
 import Proyectos from './components/sections/Proyectos';
-import Contacto from './components/sections/Contacto';
+import WhatsAppCta from './components/sections/WhatsAppCta';
 
 const SECTIONS = ['como-trabajo', 'proyectos', 'contacto'];
 const NAV_LABELS = {
@@ -211,17 +211,9 @@ export default function Portfolio() {
           </div>
         </section>
 
-        <section id="proyectos" className="relative py-16 sm:py-24 px-4 sm:px-6" aria-label="Sección Proyectos">
-          <div className="max-w-6xl mx-auto">
-            <Proyectos isDarkMode={isDarkMode} />
-          </div>
-        </section>
+        <Proyectos isDarkMode={isDarkMode} />
 
-        <section id="contacto" className="relative py-16 sm:py-24 px-4 sm:px-6" aria-label="Sección Contacto">
-          <div className="max-w-6xl mx-auto">
-            <Contacto isDarkMode={isDarkMode} />
-          </div>
-        </section>
+        <WhatsAppCta isDarkMode={isDarkMode} />
       </main>
 
       {/* ── Footer ── */}
