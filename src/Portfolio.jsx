@@ -5,7 +5,7 @@ import { useTheme } from './hooks/useTheme';
 import { t } from './utils/theme';
 import Hero from './components/sections/Hero';
 import ComoTrabajo from './components/sections/ComoTrabajo';
-import Proyectos from './components/sections/Proyectos';
+import Sistemas from './components/sections/Sistemas';
 import WhatsAppCta from './components/sections/WhatsAppCta';
 
 const SECTIONS = ['como-trabajo', 'proyectos', 'contacto'];
@@ -174,7 +174,7 @@ export default function Portfolio() {
       <main id="main-content" role="main">
         <ComoTrabajo isDarkMode={isDarkMode} />
 
-        <Proyectos isDarkMode={isDarkMode} />
+        <Sistemas isDarkMode={isDarkMode} />
 
         <WhatsAppCta isDarkMode={isDarkMode} />
       </main>
